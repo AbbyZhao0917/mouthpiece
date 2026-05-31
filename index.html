@@ -515,7 +515,17 @@ function toggleVoice() {
   isRec ? stopVoice() : startVoice();
 }
 
-function startVoice() {
+async function startVoice() {
+  // 先显式申请麦克风权限——手机端必须这步才会弹授权提示
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach(t => t.stop()); // 只要授权，马上释放
+    } catch(e) {
+      alert('麦克风权限被拒绝，请在浏览器/手机设置中允许麦克风，然后重试。');
+      return;
+    }
+  }
   isRec = true;
   baseText = $('inputText').value;
   $('micBtn').classList.add('rec');
