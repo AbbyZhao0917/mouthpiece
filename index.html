@@ -254,12 +254,21 @@ mark.d-ins{background:rgba(5,150,105,.12);color:#065F46;border-radius:2px;font-s
 
 /* ── MOBILE ── */
 @media(max-width:800px){
-  .tb{grid-template-columns:1fr;position:static;}
-  .tbc{border-right:none;border-bottom:1px solid var(--bd);}
-  .tbc:last-child{border-bottom:none;}
+  /* 顶部4栏改为2×2网格，更紧凑 */
+  .tb{grid-template-columns:1fr 1fr;height:auto;position:static;}
+  .tbc{border-bottom:1px solid rgba(255,255,255,.4);}
+  .tbc:nth-child(odd){border-right:1px solid rgba(255,255,255,.4);}
+  .tbc:nth-child(even){border-right:none;}
+  .tbc:nth-last-child(-n+2){border-bottom:none;}
+
+  /* header：徽标换行到第二行，避免拥挤 */
+  .hd{flex-wrap:wrap;height:auto;padding:10px 14px;gap:8px;}
+  .hd-right{width:100%;justify-content:space-between;}
+  .hd-badge{font-size:8.5px;}
+
   .mc{grid-template-columns:1fr;min-height:auto;}
   .lp,.rp{overflow:visible;}
-  .lp{border-right:none;border-bottom:1px solid var(--bd);}
+  .lp{border-right:none;border-bottom:1px solid rgba(255,255,255,.4);}
   .ta{min-height:130px;}
   .br{grid-template-columns:1fr;}
   .cmp-wrap.show{grid-template-columns:1fr;}
@@ -277,7 +286,7 @@ mark.d-ins{background:rgba(5,150,105,.12);color:#065F46;border-radius:2px;font-s
     <div class="hd-sub">I 人的 AI 嘴替助手</div>
   </div>
   <div class="hd-right">
-    <span class="hd-badge">Claude Sonnet 4.6 · Claude Code 出品</span>
+    <span class="hd-badge">Claude Sonnet 4.6 · Claude Code 出品 · v0.9</span>
     <button class="btn-hist" onclick="toggleSidebar()">
       📋 历史 <span id="histCount" style="background:rgba(255,255,255,.2);border-radius:999px;padding:0 5px;font-size:10px;">0</span>
     </button>
