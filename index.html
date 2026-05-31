@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CCFA 文字工坊</title>
+<style>
+:root {
+  --primary: #1B3F6E;
+  --primary-2: #2455A4;
+  --accent: #C9A227;
+  --accent-2: #E8C050;
+  --bg: #EEF2F7;
+  --surface: #FFFFFF;
+  --surface-2: #F6F9FC;
+  --text: #1E2A38;
+  --text-muted: #6B7A8D;
+  --border: #D6E2EF;
+  --success: #27AE60;
+  --danger: #E74C3C;
+  --r: 12px;
+  --shadow: 0 2px 16px rgba(27,63,110,0.09);
+  --shadow-lg: 0 6px 28px rgba(27,63,110,0.16);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, #1F4E9A 60%, var(--primary-2) 100%);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.22);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 900;
+  color: var(--primary);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-text { line-height: 1; }
+.header-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.header-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 11.5px;
+  letter-spacing: 1.5px;
+  margin-top: 3px;
+}
+.header-badge {
+  margin-left: auto;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.75);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Layout ── */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+  display: grid;
+  grid-template-columns: 55% 1fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .container { grid-template-columns: 1fr; }
+  .output-sticky { position: static !important; }
+}
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.card:last-child { margin-bottom: 0; }
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 13px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 3px; height: 15px;
+  background: linear-gradient(180deg, var(--accent), #E8A500);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.section-note {
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #9AABB8;
+  margin-left: 2px;
+}
+
+/* ── Scene Grid ── */
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+@media (max-width: 520px) {
+  .scene-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 380px) {
+  .scene-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.scene-btn {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 4px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--surface-2);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.scene-btn:hover {
+  border-color: var(--primary-2);
+  box-shadow: 0 2px 10px rgba(27,63,110,0.12);
+  transform: translateY(-2px);
+}
+.scene-btn.active {
+  border-color: var(--primary);
+  background: linear-gradient(145deg, #EBF1FB 0%, #FFFFFF 100%);
+  box-shadow: 0 0 0 3px rgba(27,63,110,0.10), 0 3px 12px rgba(27,63,110,0.12);
+}
+.scene-icon { font-size: 22px; line-height: 1; margin-bottom: 5px; }
+.scene-name {
+  font-size: 11px; line-height: 1.35;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.scene-btn.active .scene-name {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── Style Tags ── */
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.tag {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tag:hover { border-color: var(--accent); color: var(--primary); }
+.tag.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Textarea ── */
+.textarea {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  resize: vertical;
+  outline: none;
+  transition: all 0.18s;
+  min-height: 120px;
+}
+.textarea:focus {
+  border-color: var(--primary-2);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(36,85,164,0.08);
+}
+.textarea::placeholder { color: #B0BFCC; }
+
+/* ── File Drop ── */
+.file-drop {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 18px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--surface-2);
+  position: relative;
+}
+.file-drop:hover, .file-drop.over {
+  border-color: var(--primary-2);
+  background: #EDF2FB;
+}
+.file-drop input[type="file"] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer;
+  width: 100%; height: 100%;
+}
+.file-drop-icon { font-size: 26px; margin-bottom: 6px; }
+.file-drop-hint { font-size: 12.5px; color: var(--text-muted); }
+.file-chosen {
+  margin-top: 10px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 500;
+}
+.file-chosen.show { display: flex; }
+.clear-file {
+  color: var(--danger);
+  font-size: 15px;
+  cursor: pointer;
+  line-height: 1;
+  position: relative; z-index: 1;
+}
+
+/* ── Extra input ── */
+.extra-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  outline: none;
+  transition: all 0.18s;
+}
+.extra-input:focus {
+  border-color: var(--primary-2);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(36,85,164,0.08);
+}
+.extra-input::placeholder { color: #B0BFCC; }
+
+/* ── Submit ── */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(27,63,110,0.30);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px rgba(27,63,110,0.38);
+}
+.btn-submit:active:not(:disabled) { transform: translateY(0); }
+.btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
+
+/* ── Output ── */
+.output-sticky { position: sticky; top: 80px; }
+
+.output-box {
+  min-height: 220px;
+  max-height: 62vh;
+  overflow-y: auto;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 14.5px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+  transition: all 0.18s;
+}
+.output-box:focus-within { border-color: var(--border); }
+
+.placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  color: #B5C4D3;
+  gap: 10px;
+}
+.placeholder-icon { font-size: 38px; }
+.placeholder-text { font-size: 13px; text-align: center; line-height: 1.6; }
+
+.output-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 11px;
+}
+.char-info { font-size: 12px; color: var(--text-muted); }
+
+.btn-copy {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: var(--primary);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: 0.5px;
+}
+.btn-copy:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.btn-copy.show { display: flex; }
+.btn-copy.ok { background: linear-gradient(135deg, var(--success), #2ECC90); color: #fff; }
+
+/* ── Cursor blink ── */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor {
+  display: inline-block;
+  width: 2px; height: 1.1em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s ease-in-out infinite;
+}
+
+/* ── History ── */
+.history-wrap {
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+.history-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.history-list { display: flex; flex-direction: column; gap: 7px; max-height: 180px; overflow-y: auto; }
+.history-item {
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.history-item:hover { border-color: var(--primary-2); color: var(--primary); background: #EDF2FB; }
+.history-item strong { color: var(--primary); font-size: 11px; margin-right: 5px; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C4D0DC; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #A0B0BF; }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 11.5px;
+  color: #9AABB8;
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">文</div>
+  <div class="header-text">
+    <div class="header-title">CCFA 文字工坊</div>
+    <div class="header-sub">中国连锁经营协会 · 专业文字助手</div>
+  </div>
+  <div class="header-badge">AI 驱动</div>
+</header>
+
+<div class="container">
+
+  <!-- ── LEFT: Input ── -->
+  <div>
+
+    <!-- Scene -->
+    <div class="card">
+      <div class="section-label">使用场景</div>
+      <div class="scene-grid" id="sceneGrid">
+        <div class="scene-btn active" data-v="official">
+          <div class="scene-icon">📄</div>
+          <div class="scene-name">公文<br>红头文件</div>
+        </div>
+        <div class="scene-btn" data-v="report">
+          <div class="scene-icon">📊</div>
+          <div class="scene-name">工作<br>报告</div>
+        </div>
+        <div class="scene-btn" data-v="leader_msg">
+          <div class="scene-icon">💬</div>
+          <div class="scene-name">给领导<br>的消息</div>
+        </div>
+        <div class="scene-btn" data-v="gov_msg">
+          <div class="scene-icon">🏛️</div>
+          <div class="scene-name">给政府<br>的消息</div>
+        </div>
+        <div class="scene-btn" data-v="member_msg">
+          <div class="scene-icon">🤝</div>
+          <div class="scene-name">给会员<br>的消息</div>
+        </div>
+        <div class="scene-btn" data-v="speech">
+          <div class="scene-icon">🎤</div>
+          <div class="scene-name">发言稿</div>
+        </div>
+        <div class="scene-btn" data-v="ppt">
+          <div class="scene-icon">📑</div>
+          <div class="scene-name">PPT<br>要点</div>
+        </div>
+        <div class="scene-btn" data-v="work_summary">
+          <div class="scene-icon">📝</div>
+          <div class="scene-name">工作<br>总结</div>
+        </div>
+        <div class="scene-btn" data-v="host">
+          <div class="scene-icon">🎙️</div>
+          <div class="scene-name">主持词</div>
+        </div>
+        <div class="scene-btn" data-v="custom">
+          <div class="scene-icon">✨</div>
+          <div class="scene-name">自定义</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style Tags -->
+    <div class="card">
+      <div class="section-label">处理方式 <span class="section-note">可多选</span></div>
+      <div class="tags-wrap" id="styleTags">
+        <div class="tag active" data-v="polish">✦ 整体润色</div>
+        <div class="tag" data-v="shorten">◀ 精简缩写</div>
+        <div class="tag" data-v="expand">▶ 扩充内容</div>
+        <div class="tag" data-v="formalize">📘 书面化</div>
+        <div class="tag" data-v="professionalize">🔬 专业化</div>
+        <div class="tag" data-v="vague">〜 模糊处理</div>
+        <div class="tag" data-v="precise">◎ 精确表达</div>
+        <div class="tag" data-v="summarize">📌 提炼总结</div>
+      </div>
+    </div>
+
+    <!-- Text Input -->
+    <div class="card">
+      <div class="section-label">输入文字 <span class="section-note">Ctrl+Enter 快速提交</span></div>
+      <textarea class="textarea" id="inputText" rows="7"
+        placeholder="在此粘贴或输入需要处理的文字…&#10;&#10;也可以不填文字，只上传文件。"></textarea>
+    </div>
+
+    <!-- File Upload -->
+    <div class="card">
+      <div class="section-label">上传文件 <span class="section-note">可选 · 支持 Word / PDF / TXT</span></div>
+      <div class="file-drop" id="fileDrop">
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+        <div class="file-drop-icon">📎</div>
+        <div class="file-drop-hint">点击选择文件，或将文件拖拽到此处</div>
+        <div class="file-chosen" id="fileChosen">
+          <span id="fileNameText"></span>
+          <span class="clear-file" id="clearFile">✕</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Req -->
+    <div class="card">
+      <div class="section-label">额外要求 <span class="section-note">可选</span></div>
+      <input class="extra-input" type="text" id="extraReq"
+        placeholder="例如：语气更温和一些、不超过200字、重点突出食品安全政策意义…">
+    </div>
+
+    <!-- Submit -->
+    <button class="btn-submit" id="submitBtn" onclick="doPolish()">开 始 处 理</button>
+
+  </div>
+
+  <!-- ── RIGHT: Output ── -->
+  <div class="output-sticky">
+    <div class="card" style="margin-bottom:0">
+      <div class="section-label">处理结果</div>
+      <div class="output-box" id="outputBox">
+        <div class="placeholder-inner" id="placeholder">
+          <div class="placeholder-icon">✍️</div>
+          <div class="placeholder-text">选好场景和处理方式<br>输入文字或上传文件<br>点击「开始处理」</div>
+        </div>
+      </div>
+      <div class="output-footer">
+        <span class="char-info" id="charInfo"></span>
+        <button class="btn-copy" id="copyBtn" onclick="copyResult()">复制结果</button>
+      </div>
+
+      <!-- History -->
+      <div class="history-wrap" id="historyWrap" style="display:none">
+        <div class="history-title">本次会话历史</div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">CCFA 文字工坊 · 专为中国连锁经营协会定制</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// ── Scene: single select ──
+$('sceneGrid').addEventListener('click', e => {
+  const b = e.target.closest('.scene-btn');
+  if (!b) return;
+  document.querySelectorAll('.scene-btn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+});
+
+// ── Style tags: multi select ──
+$('styleTags').addEventListener('click', e => {
+  const t = e.target.closest('.tag');
+  if (!t) return;
+  t.classList.toggle('active');
+  if (!document.querySelectorAll('.tag.active').length) t.classList.add('active');
+});
+
+// ── File handling ──
+let file = null;
+const drop = $('fileDrop');
+const inp = $('fileInput');
+
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+drop.addEventListener('drop', e => {
+  e.preventDefault(); drop.classList.remove('over');
+  const f = e.dataTransfer.files[0];
+  if (f) setFile(f);
+});
+inp.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
+
+$('clearFile').addEventListener('click', e => {
+  e.stopPropagation();
+  file = null; inp.value = '';
+  $('fileChosen').classList.remove('show');
+});
+
+function setFile(f) {
+  file = f;
+  $('fileNameText').textContent = '📄 ' + f.name;
+  $('fileChosen').classList.add('show');
+}
+
+// ── Keyboard shortcut ──
+$('inputText').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) doPolish();
+});
+
+// ── History ──
+const history = [];
+
+function addHistory(scene, styles, result) {
+  history.unshift({ scene, styles, result, time: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'}) });
+  if (history.length > 8) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  if (!history.length) return;
+  $('historyWrap').style.display = '';
+  const list = $('historyList');
+  list.innerHTML = history.map((h, i) =>
+    `<div class="history-item" onclick="restoreHistory(${i})"><strong>[${h.time}]</strong>${h.scene} · ${h.result.slice(0,40).replace(/\n/g,' ')}…</div>`
+  ).join('');
+}
+
+function restoreHistory(i) {
+  const h = history[i];
+  const box = $('outputBox');
+  box.textContent = h.result;
+  $('charInfo').textContent = `共 ${h.result.length} 字`;
+  $('copyBtn').classList.add('show');
+  $('copyBtn').classList.remove('ok');
+  $('copyBtn').textContent = '复制结果';
+}
+
+// ── Main ──
+async function doPolish() {
+  const text = $('inputText').value.trim();
+  const scene = document.querySelector('.scene-btn.active')?.dataset.v || 'official';
+  const sceneName = document.querySelector('.scene-btn.active')?.querySelector('.scene-name')?.innerText.replace('\n','') || '';
+  const styles = Array.from(document.querySelectorAll('.tag.active')).map(t => t.dataset.v).join(',');
+  const extra = $('extraReq').value.trim();
+
+  if (!text && !file) { alert('请输入文字或上传文件'); return; }
+
+  const btn = $('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '处理中…';
+
+  const box = $('outputBox');
+  $('placeholder')?.remove();
+  box.textContent = '';
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  box.appendChild(cur);
+  $('copyBtn').classList.remove('show');
+  $('charInfo').textContent = '';
+
+  const fd = new FormData();
+  fd.append('text', text);
+  fd.append('scene', scene);
+  fd.append('styles', styles);
+  fd.append('custom_req', extra);
+  if (file) fd.append('file', file);
+
+  try {
+    const resp = await fetch('/polish', { method: 'POST', body: fd });
+    if (!resp.ok) throw new Error(`服务器错误 ${resp.status}`);
+
+    const reader = resp.body.getReader();
+    const dec = new TextDecoder();
+    let result = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      result += dec.decode(value, { stream: true });
+      box.textContent = result;
+      box.appendChild(cur);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    cur.remove();
+    if (result) {
+      $('charInfo').textContent = `共 ${result.length} 字`;
+      $('copyBtn').classList.add('show');
+      $('copyBtn').className = 'btn-copy show';
+      $('copyBtn').textContent = '复制结果';
+      addHistory(sceneName, styles, result);
+    }
+  } catch (err) {
+    cur.remove();
+    box.textContent = '❌ 处理失败：' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '开 始 处 理';
+  }
+}
+
+function copyResult() {
+  const text = $('outputBox').textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = $('copyBtn');
+    btn.textContent = '✓ 已复制';
+    btn.classList.add('ok');
+    setTimeout(() => {
+      btn.textContent = '复制结果';
+      btn.classList.remove('ok');
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+  });
+}
+</script>
+</body>
+</html>
