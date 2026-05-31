@@ -174,7 +174,7 @@ body::after{
 }
 .ta::placeholder{color:var(--tx3);}
 
-/* ── VOICE BUTTON (prominent, text-based) ── */
+/* ── VOICE / TONE ROW ── */
 .voice-row{
   display:flex;align-items:center;gap:8px;margin-top:8px;
   padding-top:8px;border-top:1px solid var(--bd);flex-shrink:0;
@@ -193,14 +193,52 @@ body::after{
   border-color:var(--red);background:var(--red-d);color:var(--red);
   animation:prec 1.2s ease-in-out infinite;
 }
-.mic-dot{
-  width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;
-}
+.mic-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;}
 .btn-mic.rec .mic-dot{animation:bk .7s ease-in-out infinite;}
 .voice-hint{font-size:11px;color:var(--tx3);line-height:1.4;}
 .voice-hint.active{color:var(--red);font-weight:500;}
-
 @keyframes prec{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.3);}50%{box-shadow:0 0 0 8px rgba(220,38,38,0);}}
+
+/* ── TONE SELECTOR ── */
+.tone-row{display:flex;flex-wrap:wrap;gap:4px;}
+.ttag{
+  padding:3px 10px;border:1.5px solid var(--bd);border-radius:999px;
+  font-size:11.5px;cursor:pointer;transition:var(--t);
+  background:var(--surf2);color:var(--tx2);
+  user-select:none;-webkit-tap-highlight-color:transparent;
+}
+.ttag:hover{border-color:var(--blue2);color:var(--blue);}
+.ttag.on{background:linear-gradient(135deg,#7C3AED,#A78BFA);border-color:#7C3AED;color:#fff;font-weight:600;}
+
+/* ── COMPARE VIEW ── */
+.cmp-wrap{
+  flex:1;min-height:0;display:none;
+  grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--bd);border:1.5px solid var(--bd);
+  border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
+}
+.cmp-wrap.show{display:grid;}
+.cmp-pane{
+  background:var(--surf);padding:14px;
+  font-size:13.5px;line-height:1.88;
+  white-space:pre-wrap;word-break:break-word;
+  color:var(--tx);overflow-y:auto;
+}
+.cmp-pane-orig{color:var(--tx2);background:var(--surf2);}
+.cmp-label{
+  font-size:9.5px;font-weight:700;color:var(--tx3);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:8px;display:block;
+}
+.btn-cmp{
+  display:none;align-items:center;gap:4px;
+  padding:5px 12px;border:1.5px solid var(--bd2);border-radius:8px;
+  background:var(--surf2);color:var(--tx2);font-size:11.5px;font-weight:600;
+  cursor:pointer;transition:var(--t);box-shadow:var(--shadow);
+}
+.btn-cmp:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
+.btn-cmp.show{display:flex;}
+.btn-cmp.on{background:var(--blue-d);border-color:var(--blue);color:var(--blue);}
 
 /* ── BOTTOM ROW ── */
 .br{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0;}
@@ -403,18 +441,38 @@ body::after{
       </div>
     </div>
 
+    <!-- Tone selector -->
+    <div class="card" style="flex-shrink:0;">
+      <div class="lbl">语气风格 <span class="lbl-note">可选，单选</span></div>
+      <div class="tone-row" id="toneTags">
+        <div class="ttag on" data-v="">默认</div>
+        <div class="ttag" data-v="biz">💼 商务正式</div>
+        <div class="ttag" data-v="warm">🌸 温暖亲切</div>
+        <div class="ttag" data-v="playful">🎀 俏皮可爱</div>
+        <div class="ttag" data-v="human">✂️ 去AI味</div>
+        <div class="ttag" data-v="rigorous">🔍 严谨专业</div>
+        <div class="ttag" data-v="concise">⚡ 简洁有力</div>
+        <div class="ttag" data-v="humble">🤲 谦逊得体</div>
+        <div class="ttag" data-v="natural">🌿 平实自然</div>
+      </div>
+    </div>
+
     <div class="inp-wrap">
       <div class="card">
         <div class="lbl">输入文字 <span class="lbl-note">Ctrl+Enter 提交</span></div>
         <textarea class="ta" id="inputText"
           placeholder="在此粘贴或输入需要处理的文字…&#10;&#10;也可以直接上传文件。"></textarea>
-        <!-- Voice input row -->
-        <div class="voice-row">
+        <!-- Voice input row: desktop only -->
+        <div class="voice-row" id="voiceDesktop">
           <button class="btn-mic" id="micBtn" onclick="toggleVoice()">
             <span class="mic-dot"></span>
             <span id="micText">🎤 语音输入</span>
           </button>
           <span class="voice-hint" id="voiceHint">点击开始录音，再次点击停止</span>
+        </div>
+        <!-- Mobile hint -->
+        <div class="voice-row" id="voiceMobile" style="display:none;">
+          <span class="voice-hint">📱 手机请点击键盘上的 🎤 按钮直接语音输入</span>
         </div>
       </div>
     </div>
@@ -445,12 +503,27 @@ body::after{
   <div class="rp">
     <div class="out-hd">
       <div class="out-title">处理结果</div>
-      <button class="btn-cp" id="copyBtn" onclick="copyResult()">复制结果</button>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button class="btn-cmp" id="cmpBtn" onclick="toggleCompare()">对比原文</button>
+        <button class="btn-cp" id="copyBtn" onclick="copyResult()">复制结果</button>
+      </div>
     </div>
+    <!-- Normal output -->
     <div class="out-box" id="outputBox">
       <div class="ph" id="placeholder">
         <div class="ph-i">✦</div>
         <div class="ph-t">选好场景和处理方式<br>输入文字后点击「开始处理」</div>
+      </div>
+    </div>
+    <!-- Compare view -->
+    <div class="cmp-wrap" id="cmpWrap">
+      <div class="cmp-pane cmp-pane-orig">
+        <span class="cmp-label">原文</span>
+        <div id="cmpOrig"></div>
+      </div>
+      <div class="cmp-pane">
+        <span class="cmp-label">处理结果</span>
+        <div id="cmpResult"></div>
       </div>
     </div>
     <div class="out-ft">
@@ -466,6 +539,15 @@ body::after{
 <script>
 const $ = id => document.getElementById(id);
 
+// 手机检测：显示键盘语音提示，隐藏语音按钮
+if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const d = $('voiceDesktop'), m = $('voiceMobile');
+    if (d) d.style.display = 'none';
+    if (m) m.style.display = 'flex';
+  });
+}
+
 $('sceneGrid').addEventListener('click', e => {
   const b = e.target.closest('.sp'); if (!b) return;
   document.querySelectorAll('.sp').forEach(x => x.classList.remove('on'));
@@ -479,6 +561,11 @@ $('styleTags').addEventListener('click', e => {
 $('recipientTags').addEventListener('click', e => {
   const t = e.target.closest('.rtag'); if (!t) return;
   document.querySelectorAll('.rtag').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
+});
+$('toneTags').addEventListener('click', e => {
+  const t = e.target.closest('.ttag'); if (!t) return;
+  document.querySelectorAll('.ttag').forEach(x => x.classList.remove('on'));
   t.classList.add('on');
 });
 
@@ -582,6 +669,21 @@ function stopVoice() {
   $('voiceHint').classList.remove('active');
 }
 
+// ── Compare ──
+let savedOrig = '';
+function toggleCompare() {
+  const box = $('outputBox'), wrap = $('cmpWrap'), btn = $('cmpBtn');
+  if (wrap.classList.contains('show')) {
+    wrap.classList.remove('show'); box.style.display = '';
+    btn.classList.remove('on'); btn.textContent = '对比原文';
+  } else {
+    $('cmpOrig').textContent = savedOrig;
+    $('cmpResult').textContent = box.textContent;
+    wrap.classList.add('show'); box.style.display = 'none';
+    btn.classList.add('on'); btn.textContent = '隐藏对比';
+  }
+}
+
 // ── History ──
 const hist = [];
 function addHist(scene, result) {
@@ -612,9 +714,15 @@ async function doPolish() {
   const sceneName = sp?.textContent.trim() || '';
   const styles = Array.from(document.querySelectorAll('.tag.on')).map(t=>t.dataset.v).join(',');
   const recipient = document.querySelector('.rtag.on')?.dataset.v || '';
+  const tone = document.querySelector('.ttag.on')?.dataset.v || '';
   const extra = $('extraReq').value.trim();
   if (!text && !file) { alert('请输入文字或上传文件'); return; }
   if (isRec) stopVoice();
+  savedOrig = text; // 保存原文用于对比
+  // 重置对比视图
+  $('cmpWrap').classList.remove('show');
+  $('outputBox').style.display = '';
+  const cb2 = $('cmpBtn'); cb2.classList.remove('on','show'); cb2.textContent = '对比原文';
 
   const btn = $('submitBtn');
   btn.disabled = true; btn.textContent = '处 理 中 …';
@@ -629,7 +737,7 @@ async function doPolish() {
   const fd = new FormData();
   fd.append('text', text); fd.append('scene', scene);
   fd.append('styles', styles); fd.append('custom_req', extra);
-  fd.append('recipient', recipient);
+  fd.append('recipient', recipient); fd.append('tone', tone);
   if (file) fd.append('file', file);
 
   try {
@@ -652,6 +760,7 @@ async function doPolish() {
       $('charInfo').textContent = `${result.length} 字`;
       const cb = $('copyBtn');
       cb.className = 'btn-cp show'; cb.textContent = '复制结果';
+      if (savedOrig) { $('cmpBtn').classList.add('show'); }
       addHist(sceneName, result);
     }
   } catch(err) {

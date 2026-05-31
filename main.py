@@ -46,6 +46,17 @@ STYLES = {
     "format":          "格式整理，重新排版规整，统一标点符号和层级结构",
 }
 
+TONES = {
+    "biz":      "语气商务正式，措辞严谨，体现专业素养，避免口语化",
+    "warm":     "语气温暖亲切，让对方感受到诚意与关怀，自然不生硬",
+    "playful":  "语气俏皮可爱，活泼有趣，轻松不失礼貌",
+    "human":    "去除AI味：语言自然流畅，像真实的人写的，避免套话、排比和模板化表达，读起来有温度",
+    "rigorous": "严谨专业，逻辑清晰，用词精准，结论明确",
+    "concise":  "简洁有力，惜字如金，每句话都有分量，不废话",
+    "humble":   "谦逊得体，措辞低调务实，不夸大，体现诚意",
+    "natural":  "平实自然，口语化但不粗俗，读起来轻松顺畅",
+}
+
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
@@ -60,6 +71,7 @@ async def polish(
     styles: str = Form(default="polish"),
     custom_req: str = Form(default=""),
     recipient: str = Form(default=""),
+    tone: str = Form(default=""),
     file: UploadFile = File(default=None),
 ):
     file_text = ""
@@ -98,6 +110,7 @@ async def polish(
         f"【场景】{scene_name}：{scene_desc}\n"
         f"【处理方式】{style_descs}\n"
         + (f"【发送对象】{recipient}，请据此调整语气、措辞和正式程度\n" if recipient.strip() else "")
+        + (f"【语气风格】{TONES[tone]}\n" if tone and TONES.get(tone) else "")
         + (f"【额外要求】{custom_req}\n" if custom_req.strip() else "")
         + f"\n【原文】\n{combined}\n\n请直接输出处理结果："
     )
