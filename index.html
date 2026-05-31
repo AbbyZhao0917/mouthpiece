@@ -505,6 +505,7 @@ $('inputText').addEventListener('keydown', e => {
 
 // ── Voice Input ──
 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 let isRec = false, baseText = '';
 
 function toggleVoice() {
@@ -515,17 +516,10 @@ function toggleVoice() {
   isRec ? stopVoice() : startVoice();
 }
 
-async function startVoice() {
-  // 先显式申请麦克风权限——手机端必须这步才会弹授权提示
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach(t => t.stop()); // 只要授权，马上释放
-    } catch(e) {
-      alert('麦克风权限被拒绝，请在浏览器/手机设置中允许麦克风，然后重试。');
-      return;
-    }
-  }
+function startVoice() {
+  // 注意：不能用 async/await！iOS Safari 要求 r.start() 必须在同步的用户点击事件中调用，
+  // 一旦中间有 await 就脱离用户手势上下文，iOS 会静默拒绝。
+  // 直接调用 runSession()，让 SpeechRecognition 自己触发权限弹窗。
   isRec = true;
   baseText = $('inputText').value;
   $('micBtn').classList.add('rec');
@@ -556,11 +550,21 @@ function runSession() {
   };
 
   r.onerror = e => {
-    if (e.error === 'not-allowed') {
-      alert('麦克风权限被拒绝，请在浏览器设置中允许麦克风');
-      stopVoice();
+    const vh = $('voiceHint');
+    if (e.error === 'no-speech') return; // 正常，无人说话，继续等
+    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+      vh.textContent = '⚠ 权限不足，请在设置中开启麦克风';
+      vh.classList.add('active'); stopVoice();
+    } else if (e.error === 'audio-capture') {
+      vh.textContent = '⚠ 无法捕获麦克风，请检查硬件或重试';
+      vh.classList.add('active'); stopVoice();
+    } else if (e.error === 'network') {
+      vh.textContent = '⚠ 语音识别需要联网，请检查网络';
+      vh.classList.add('active'); stopVoice();
+    } else {
+      vh.textContent = `⚠ 错误：${e.error}，将自动重试`;
+      // 非致命错误，让 onend 继续重启
     }
-    // no-speech / aborted → ignore, will restart
   };
 
   r.onend = () => {
