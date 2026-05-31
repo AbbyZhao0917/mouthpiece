@@ -5,455 +5,334 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>嘴替</title>
 <style>
-:root {
-  --bg:      #EEF5FF;
-  --bg2:     #E6F0FD;
-  --surf:    #FFFFFF;
-  --surf2:   #F6FAFE;
-  --bd:      #D8E8FA;
-  --bd2:     #BDD3F5;
-  --blue:    #2563EB;
-  --blue2:   #3B82F6;
-  --blue3:   #93C5FD;
-  --blue-d:  rgba(37,99,235,0.07);
-  --blue-g:  0 0 0 3px rgba(37,99,235,0.12);
-  --amber:   #B45309;
-  --amber2:  #F59E0B;
-  --amber-d: rgba(180,83,9,0.07);
-  --red:     #DC2626;
-  --red-d:   rgba(220,38,38,0.07);
-  --green:   #059669;
-  --tx:      #0C2340;
-  --tx2:     #456284;
-  --tx3:     #8AAAC8;
-  --r:       10px;
-  --t:       all 0.16s cubic-bezier(0.4,0,0.2,1);
-  --hh:      54px;
-  --sh:      88px;
-  --shadow:  0 1px 4px rgba(12,35,64,0.07), 0 1px 2px rgba(12,35,64,0.04);
-  --shadow-md: 0 4px 16px rgba(12,35,64,0.09);
+:root{
+  --bg:#EEF5FF; --surf:#FFF; --surf2:#F4F9FF;
+  --bd:#D5E5F8; --bd2:#B5CEEE;
+  --blue:#2563EB; --blue2:#3B82F6; --blue-d:rgba(37,99,235,.07); --blue-g:0 0 0 3px rgba(37,99,235,.12);
+  --amber:#B45309; --amber2:#F59E0B; --amber-d:rgba(180,83,9,.07);
+  --purple:#7C3AED; --purple2:#A78BFA; --purple-d:rgba(124,58,237,.07);
+  --red:#DC2626; --red-d:rgba(220,38,38,.08);
+  --green:#059669;
+  --tx:#0C2340; --tx2:#446283; --tx3:#8AAAC8;
+  --r:10px; --t:all .16s cubic-bezier(.4,0,.2,1);
+  --hh:52px; --th:112px;
+  --sh:0 1px 3px rgba(12,35,64,.07),0 1px 2px rgba(12,35,64,.04);
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei UI",sans-serif;
-  background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;
-}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei UI",sans-serif;
+  background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle,rgba(37,99,235,.04) 1px,transparent 1px);
+  background-size:28px 28px;}
 
-/* subtle dot pattern */
-body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:radial-gradient(circle,rgba(37,99,235,0.045) 1px,transparent 1px);
-  background-size:28px 28px;
-}
-
-/* ── HEADER (dark, Render-style) ── */
-.hd{
-  position:relative;z-index:20;height:var(--hh);
-  background:linear-gradient(95deg,#060E1F 0%,#0A1A38 55%,#0E2248 100%);
-  border-bottom:1px solid rgba(37,99,235,0.2);
-  display:flex;align-items:center;gap:12px;padding:0 20px;
-  box-shadow:0 2px 20px rgba(6,14,31,0.45);
-}
-.hd-logo{
-  width:33px;height:33px;border-radius:8px;flex-shrink:0;
-  background:linear-gradient(135deg,#2563EB,#3B82F6);
+/* HEADER */
+.hd{position:relative;z-index:30;height:var(--hh);
+  background:linear-gradient(95deg,#05091A 0%,#0B1A38 55%,#102248 100%);
+  border-bottom:1px solid rgba(37,99,235,.2);
+  display:flex;align-items:center;gap:12px;padding:0 18px;
+  box-shadow:0 2px 16px rgba(5,9,26,.4);}
+.hd-logo{width:31px;height:31px;border-radius:7px;flex-shrink:0;
+  background:linear-gradient(135deg,#2563EB,#60A5FA);
   display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:900;color:#fff;letter-spacing:-0.5px;
-  box-shadow:0 0 12px rgba(59,130,246,0.4);
-}
-.hd-title{
-  color:#fff;font-size:19px;font-weight:800;letter-spacing:3px;
-}
-.hd-sub{color:rgba(255,255,255,0.35);font-size:10px;letter-spacing:1.5px;margin-top:2px;}
-.hd-badge{
-  margin-left:auto;
-  background:rgba(37,99,235,0.15);border:1px solid rgba(59,130,246,0.3);
-  color:#93C5FD;font-size:10px;font-weight:600;
-  padding:2px 10px;border-radius:999px;letter-spacing:1px;
-}
+  font-size:14px;font-weight:900;color:#fff;
+  box-shadow:0 0 10px rgba(59,130,246,.35);}
+.hd-title{color:#fff;font-size:17px;font-weight:800;letter-spacing:4px;}
+.hd-sub{color:rgba(255,255,255,.3);font-size:9px;letter-spacing:1.5px;margin-top:2px;}
+.hd-badge{margin-left:auto;background:rgba(37,99,235,.1);border:1px solid rgba(96,165,250,.22);
+  color:#93C5FD;font-size:9px;font-weight:600;padding:2px 9px;border-radius:999px;
+  letter-spacing:.3px;white-space:nowrap;}
 
-/* ── SCENE BAND ── */
-.sb{
-  position:relative;z-index:19;height:var(--sh);
-  background:var(--surf);border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;gap:10px;padding:0 18px;
-  box-shadow:var(--shadow);
-}
-.sb-lbl{
-  writing-mode:vertical-rl;transform:rotate(180deg);
-  font-size:9px;font-weight:700;color:var(--tx3);
-  letter-spacing:2px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;
-}
-.sb-pills{display:flex;flex-wrap:wrap;gap:5px;align-content:center;flex:1;}
+/* TOP BAR: 3 cols (场景 | 处理方式 | 语气风格) */
+.tb{position:relative;z-index:20;height:var(--th);background:var(--surf);
+  border-bottom:1px solid var(--bd);box-shadow:var(--sh);
+  display:grid;grid-template-columns:2fr 2fr 1.6fr;overflow:hidden;}
+.tbc{padding:9px 12px;border-right:1px solid var(--bd);
+  display:flex;flex-direction:column;gap:6px;overflow:hidden;min-width:0;}
+.tbc:last-child{border-right:none;}
+.tbl{font-size:9.5px;font-weight:700;color:var(--tx3);letter-spacing:1.8px;
+  text-transform:uppercase;display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.tbl::before{content:'';display:block;width:2px;height:11px;border-radius:2px;flex-shrink:0;
+  background:linear-gradient(180deg,var(--blue),var(--blue2));}
+.tbl.am::before{background:linear-gradient(180deg,var(--amber),var(--amber2));}
+.tbl.pu::before{background:linear-gradient(180deg,var(--purple),var(--purple2));}
 
-.sp{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:4px 11px;border:1.5px solid var(--bd);border-radius:999px;
-  background:var(--surf2);font-size:11.5px;color:var(--tx2);
-  cursor:pointer;transition:var(--t);user-select:none;white-space:nowrap;
-  -webkit-tap-highlight-color:transparent;
-}
-.sp .e{font-size:12px;}
-.sp:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);transform:translateY(-1px);box-shadow:var(--shadow);}
-.sp.on{
-  background:var(--blue);border-color:var(--blue);
-  color:#fff;font-weight:600;
-  box-shadow:0 2px 10px rgba(37,99,235,0.28);
-}
+.sb-pills,.tw,.tone-row{display:flex;flex-wrap:wrap;gap:4px;overflow:hidden;align-content:flex-start;}
 
-/* ── MAIN ── */
-.mc{
-  position:relative;z-index:1;
-  height:calc(100vh - var(--hh) - var(--sh));
-  display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
-}
+/* scene pills */
+.sp{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;
+  border:1.5px solid var(--bd);border-radius:999px;background:var(--surf2);
+  font-size:10.5px;color:var(--tx2);cursor:pointer;transition:var(--t);
+  user-select:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.sp .e{font-size:11px;}
+.sp:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
+.sp.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;
+  box-shadow:0 2px 7px rgba(37,99,235,.25);}
 
-/* ── PANELS ── */
-.lp,.rp{display:flex;flex-direction:column;gap:8px;padding:12px;overflow:hidden;}
-.lp{border-right:1px solid var(--bd);}
-.rp{background:var(--bg2);}
-
-/* ── CARD ── */
-.card{
-  background:var(--surf);border:1.5px solid var(--bd);
-  border-radius:var(--r);padding:11px 13px;
-  box-shadow:var(--shadow);transition:border-color 0.18s;
-}
-.card:focus-within{border-color:var(--bd2);}
-
-.lbl{
-  font-size:10px;font-weight:700;color:var(--tx3);
-  letter-spacing:1.8px;text-transform:uppercase;
-  display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;
-}
-.lbl::before{
-  content:'';display:block;width:2.5px;height:12px;border-radius:2px;
-  background:linear-gradient(180deg,var(--blue),var(--blue2));
-  flex-shrink:0;
-}
-.lbl-note{font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--tx3);}
-
-/* ── CONTROL ROW ── */
-.cr{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0;}
-
-/* ── TAGS ── */
-.tw{display:flex;flex-wrap:wrap;gap:4px;}
-
-.tag{
-  padding:3px 10px;border:1.5px solid var(--bd);border-radius:999px;
-  font-size:11.5px;cursor:pointer;transition:var(--t);
-  background:var(--surf2);color:var(--tx2);
-  user-select:none;-webkit-tap-highlight-color:transparent;
-}
+/* style tags */
+.tag{padding:3px 8px;border:1.5px solid var(--bd);border-radius:999px;
+  font-size:10.5px;cursor:pointer;transition:var(--t);background:var(--surf2);color:var(--tx2);
+  user-select:none;-webkit-tap-highlight-color:transparent;}
 .tag:hover{border-color:var(--blue2);color:var(--blue);}
 .tag.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;}
 
-.rtag{
-  padding:3px 10px;border:1.5px solid var(--bd);border-radius:999px;
-  font-size:11.5px;cursor:pointer;transition:var(--t);
-  background:var(--surf2);color:var(--tx2);
-  user-select:none;-webkit-tap-highlight-color:transparent;
-}
-.rtag:hover{border-color:var(--amber2);color:var(--amber);}
-.rtag.on{
-  background:var(--amber-d);border-color:var(--amber2);
-  color:var(--amber);font-weight:600;
-}
+/* tone tags */
+.ttag{padding:3px 8px;border:1.5px solid var(--bd);border-radius:999px;
+  font-size:10.5px;cursor:pointer;transition:var(--t);background:var(--surf2);color:var(--tx2);
+  user-select:none;-webkit-tap-highlight-color:transparent;}
+.ttag:hover{border-color:var(--purple2);color:var(--purple);}
+.ttag.on{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:600;}
 
-/* ── INPUT ── */
+/* MAIN: 2 cols */
+.mc{position:relative;z-index:1;height:calc(100vh - var(--hh) - var(--th));
+  display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+
+/* PANELS */
+.lp,.rp{display:flex;flex-direction:column;gap:8px;padding:10px;overflow:hidden;}
+.lp{border-right:1px solid var(--bd);}
+.rp{background:var(--surf2);}
+
+/* CARD */
+.card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);
+  padding:10px 12px;box-shadow:var(--sh);flex-shrink:0;}
+.lbl{font-size:9.5px;font-weight:700;color:var(--tx3);letter-spacing:1.8px;
+  text-transform:uppercase;display:flex;align-items:center;gap:5px;margin-bottom:7px;flex-wrap:wrap;}
+.lbl::before{content:'';display:block;width:2px;height:11px;border-radius:2px;flex-shrink:0;
+  background:linear-gradient(180deg,var(--amber),var(--amber2));}
+.lbl-note{font-weight:400;text-transform:none;letter-spacing:0;font-size:9.5px;color:var(--tx3);}
+
+/* recipient */
+.rtw{display:flex;flex-wrap:wrap;gap:4px;}
+.rtag{padding:3px 8px;border:1.5px solid var(--bd);border-radius:999px;
+  font-size:10.5px;cursor:pointer;transition:var(--t);background:var(--surf2);color:var(--tx2);
+  user-select:none;-webkit-tap-highlight-color:transparent;}
+.rtag:hover{border-color:var(--amber2);color:var(--amber);}
+.rtag.on{background:var(--amber-d);border-color:var(--amber2);color:var(--amber);font-weight:600;}
+
+/* INPUT grows */
 .inp-wrap{flex:1;display:flex;flex-direction:column;min-height:0;}
-.inp-wrap .card{flex:1;display:flex;flex-direction:column;min-height:0;}
-.ta{
-  flex:1;min-height:0;width:100%;
-  border:none;outline:none;resize:none;
-  font-size:13.5px;line-height:1.75;font-family:inherit;
-  color:var(--tx);background:transparent;padding:4px 0 0;
-  caret-color:var(--blue);
-}
+.inp-wrap .card{flex:1;display:flex;flex-direction:column;min-height:0;padding-bottom:8px;}
+.ta{flex:1;min-height:0;width:100%;border:none;outline:none;resize:none;
+  font-size:13px;line-height:1.78;font-family:inherit;
+  color:var(--tx);background:transparent;padding:3px 0 0;caret-color:var(--blue);}
 .ta::placeholder{color:var(--tx3);}
 
-/* ── VOICE / TONE ROW ── */
-.voice-row{
-  display:flex;align-items:center;gap:8px;margin-top:8px;
-  padding-top:8px;border-top:1px solid var(--bd);flex-shrink:0;
-}
-.btn-mic{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 14px;border-radius:8px;
-  border:1.5px solid var(--bd2);background:var(--surf2);
-  color:var(--tx2);font-size:12.5px;font-weight:600;
-  cursor:pointer;transition:var(--t);white-space:nowrap;
-  -webkit-tap-highlight-color:transparent;
-  box-shadow:var(--shadow);
-}
+/* voice row */
+.vrow{display:flex;align-items:center;gap:8px;
+  margin-top:7px;padding-top:7px;border-top:1px solid var(--bd);flex-shrink:0;}
+.btn-mic{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:7px;
+  border:1.5px solid var(--bd2);background:var(--surf2);color:var(--tx2);
+  font-size:11.5px;font-weight:600;cursor:pointer;transition:var(--t);white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;box-shadow:var(--sh);}
 .btn-mic:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
-.btn-mic.rec{
-  border-color:var(--red);background:var(--red-d);color:var(--red);
-  animation:prec 1.2s ease-in-out infinite;
-}
-.mic-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.btn-mic.rec{border-color:var(--red);background:var(--red-d);color:var(--red);
+  animation:prec 1.2s ease-in-out infinite;}
+.mic-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
 .btn-mic.rec .mic-dot{animation:bk .7s ease-in-out infinite;}
-.voice-hint{font-size:11px;color:var(--tx3);line-height:1.4;}
-.voice-hint.active{color:var(--red);font-weight:500;}
-@keyframes prec{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.3);}50%{box-shadow:0 0 0 8px rgba(220,38,38,0);}}
+.vhint{font-size:10.5px;color:var(--tx3);}
+.vhint.act{color:var(--red);font-weight:500;}
+@keyframes prec{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3);}50%{box-shadow:0 0 0 7px rgba(220,38,38,0);}}
 
-/* ── TONE SELECTOR ── */
-.tone-row{display:flex;flex-wrap:wrap;gap:4px;}
-.ttag{
-  padding:3px 10px;border:1.5px solid var(--bd);border-radius:999px;
-  font-size:11.5px;cursor:pointer;transition:var(--t);
-  background:var(--surf2);color:var(--tx2);
-  user-select:none;-webkit-tap-highlight-color:transparent;
-}
-.ttag:hover{border-color:var(--blue2);color:var(--blue);}
-.ttag.on{background:linear-gradient(135deg,#7C3AED,#A78BFA);border-color:#7C3AED;color:#fff;font-weight:600;}
-
-/* ── COMPARE VIEW ── */
-.cmp-wrap{
-  flex:1;min-height:0;display:none;
-  grid-template-columns:1fr 1fr;gap:1px;
-  background:var(--bd);border:1.5px solid var(--bd);
-  border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);
-}
-.cmp-wrap.show{display:grid;}
-.cmp-pane{
-  background:var(--surf);padding:14px;
-  font-size:13.5px;line-height:1.88;
-  white-space:pre-wrap;word-break:break-word;
-  color:var(--tx);overflow-y:auto;
-}
-.cmp-pane-orig{color:var(--tx2);background:var(--surf2);}
-.cmp-label{
-  font-size:9.5px;font-weight:700;color:var(--tx3);
-  letter-spacing:1.5px;text-transform:uppercase;
-  margin-bottom:8px;display:block;
-}
-.btn-cmp{
-  display:none;align-items:center;gap:4px;
-  padding:5px 12px;border:1.5px solid var(--bd2);border-radius:8px;
-  background:var(--surf2);color:var(--tx2);font-size:11.5px;font-weight:600;
-  cursor:pointer;transition:var(--t);box-shadow:var(--shadow);
-}
-.btn-cmp:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
-.btn-cmp.show{display:flex;}
-.btn-cmp.on{background:var(--blue-d);border-color:var(--blue);color:var(--blue);}
-
-/* ── BOTTOM ROW ── */
+/* BOTTOM ROW */
 .br{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0;}
-.br-lbl{
-  font-size:10px;font-weight:700;color:var(--tx3);
-  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;
-  display:flex;align-items:center;gap:5px;
-}
-.br-lbl::before{content:'';display:block;width:2.5px;height:11px;border-radius:2px;background:linear-gradient(180deg,var(--amber),var(--amber2));flex-shrink:0;}
-.br-note{font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--tx3);}
-
-.fd{
-  border:1.5px dashed var(--bd2);border-radius:8px;height:58px;
-  cursor:pointer;transition:var(--t);background:var(--surf2);position:relative;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  box-shadow:var(--shadow);
-}
+.br-lbl{font-size:9.5px;font-weight:700;color:var(--tx3);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+.br-lbl::before{content:'';display:block;width:2px;height:10px;border-radius:2px;
+  background:linear-gradient(180deg,var(--amber),var(--amber2));flex-shrink:0;}
+.br-note{font-weight:400;text-transform:none;letter-spacing:0;font-size:9.5px;color:var(--tx3);}
+.fd{border:1.5px dashed var(--bd2);border-radius:8px;height:54px;cursor:pointer;transition:var(--t);
+  background:var(--surf2);position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:var(--sh);}
 .fd:hover,.fd.ov{border-color:var(--blue2);background:var(--blue-d);}
 .fd input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.fd-ic{font-size:15px;}
-.fd-h{font-size:11px;color:var(--tx3);}
-.fc{font-size:11px;color:var(--blue);display:none;align-items:center;gap:3px;font-weight:500;}
+.fd-ic{font-size:14px;}.fd-h{font-size:10px;color:var(--tx3);}
+.fc{font-size:10px;color:var(--blue);display:none;align-items:center;gap:3px;font-weight:500;text-align:center;padding:0 6px;}
 .fc.show{display:flex;}
-.fc-x{color:var(--red);cursor:pointer;position:relative;z-index:1;font-size:13px;}
-
-.ex{
-  width:100%;height:58px;border:1.5px solid var(--bd);border-radius:8px;
-  padding:8px 10px;font-size:12.5px;font-family:inherit;
-  color:var(--tx);background:var(--surf2);
-  outline:none;transition:var(--t);resize:none;caret-color:var(--blue);
-  box-shadow:var(--shadow);
-}
+.fc-x{color:var(--red);cursor:pointer;position:relative;z-index:1;font-size:12px;}
+.ex{width:100%;height:54px;border:1.5px solid var(--bd);border-radius:8px;
+  padding:7px 10px;font-size:12px;font-family:inherit;color:var(--tx);background:var(--surf2);
+  outline:none;transition:var(--t);resize:none;caret-color:var(--blue);box-shadow:var(--sh);}
 .ex:focus{border-color:var(--blue2);background:var(--surf);box-shadow:var(--blue-g);}
 .ex::placeholder{color:var(--tx3);}
 
-/* ── SUBMIT ── */
-.btn-go{
-  width:100%;padding:12px;flex-shrink:0;border:none;border-radius:var(--r);
+/* SUBMIT */
+.btn-go{width:100%;padding:11px;flex-shrink:0;border:none;border-radius:var(--r);
   font-size:14px;font-weight:700;letter-spacing:3px;cursor:pointer;transition:var(--t);
   background:linear-gradient(135deg,#1D4ED8,#2563EB);
-  color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.30),0 1px 3px rgba(37,99,235,0.15);
-  -webkit-tap-highlight-color:transparent;
-}
-.btn-go:hover:not(:disabled){
-  background:linear-gradient(135deg,#1E40AF,#2563EB);
-  transform:translateY(-1px);box-shadow:0 6px 22px rgba(37,99,235,0.4);
-}
+  color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.28);-webkit-tap-highlight-color:transparent;}
+.btn-go:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.38);}
 .btn-go:active:not(:disabled){transform:none;}
 .btn-go:disabled{opacity:.5;cursor:not-allowed;transform:none!important;}
 
-/* ── OUTPUT ── */
+/* OUTPUT */
 .out-hd{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.out-title{
-  font-size:10px;font-weight:700;color:var(--tx3);
-  letter-spacing:1.8px;text-transform:uppercase;
-  display:flex;align-items:center;gap:5px;
-}
-.out-title::before{
-  content:'';display:block;width:2.5px;height:12px;border-radius:2px;
-  background:linear-gradient(180deg,var(--blue),var(--blue2));
-}
+.out-title{font-size:9.5px;font-weight:700;color:var(--tx3);letter-spacing:1.8px;
+  text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.out-title::before{content:'';display:block;width:2px;height:11px;border-radius:2px;
+  background:linear-gradient(180deg,var(--blue),var(--blue2));}
+.out-acts{display:flex;gap:6px;align-items:center;}
+.btn-cp,.btn-cmp{display:none;align-items:center;gap:4px;
+  padding:4px 11px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:var(--t);}
+.btn-cp{border:none;background:linear-gradient(135deg,#B45309,#F59E0B);color:#fff;
+  box-shadow:0 2px 8px rgba(180,83,9,.2);}
+.btn-cp:hover{filter:brightness(1.07);transform:translateY(-1px);}
+.btn-cp.show{display:flex;}.btn-cp.ok{background:linear-gradient(135deg,#059669,#10B981);box-shadow:none;}
+.btn-cmp{border:1.5px solid var(--bd2);background:var(--surf2);color:var(--tx2);box-shadow:var(--sh);}
+.btn-cmp:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
+.btn-cmp.show{display:flex;}.btn-cmp.on{background:var(--blue-d);border-color:var(--blue);color:var(--blue);}
 
-.btn-cp{
-  display:none;align-items:center;gap:5px;
-  padding:5px 14px;border:none;border-radius:8px;
-  background:linear-gradient(135deg,#B45309,#F59E0B);
-  color:#fff;font-size:12px;font-weight:700;cursor:pointer;
-  transition:var(--t);box-shadow:0 2px 10px rgba(180,83,9,0.2);
-}
-.btn-cp:hover{filter:brightness(1.08);transform:translateY(-1px);}
-.btn-cp.show{display:flex;}
-.btn-cp.ok{background:linear-gradient(135deg,#059669,#10B981);box-shadow:none;}
+.out-box{flex:1;min-height:0;overflow-y:auto;background:var(--surf);border:1.5px solid var(--bd);
+  border-radius:var(--r);padding:14px;font-size:13.5px;line-height:1.88;
+  white-space:pre-wrap;word-break:break-word;color:var(--tx);box-shadow:var(--sh);}
+.ph{height:100%;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;color:var(--tx3);}
+.ph-i{font-size:26px;opacity:.22;}.ph-t{font-size:12px;text-align:center;line-height:1.7;}
 
-.out-box{
-  flex:1;min-height:0;overflow-y:auto;
-  background:var(--surf);border:1.5px solid var(--bd);
-  border-radius:var(--r);padding:15px;
-  font-size:14px;line-height:1.88;
-  white-space:pre-wrap;word-break:break-word;color:var(--tx);
-  box-shadow:var(--shadow);
-}
-.ph{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--tx3);}
-.ph-i{font-size:30px;opacity:.3;}
-.ph-t{font-size:12.5px;text-align:center;line-height:1.7;}
+/* compare */
+.cmp-wrap{flex:1;min-height:0;display:none;gap:1px;background:var(--bd);
+  border:1.5px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.cmp-wrap.show{display:grid;grid-template-columns:1fr 1fr;}
+.cmp-pane{background:var(--surf);padding:12px;font-size:13px;line-height:1.85;
+  white-space:pre-wrap;word-break:break-word;color:var(--tx);overflow-y:auto;}
+.cmp-pane-orig{background:var(--surf2);color:var(--tx2);}
+.cmp-head{font-size:9px;font-weight:700;color:var(--tx3);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:8px;display:block;}
+mark.d-del{background:rgba(220,38,38,.12);color:#B91C1C;border-radius:2px;font-style:normal;}
+mark.d-ins{background:rgba(5,150,105,.12);color:#065F46;border-radius:2px;font-style:normal;}
 
 .out-ft{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .ci{font-size:11px;color:var(--tx3);}
-
-.hs{display:none;flex-direction:column;gap:4px;max-height:110px;flex-shrink:0;}
+.hs{display:none;flex-direction:column;gap:4px;max-height:95px;flex-shrink:0;}
 .hs.show{display:flex;}
-.hs-lbl{font-size:9.5px;font-weight:700;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;}
+.hs-lbl{font-size:9px;font-weight:700;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;}
 .hs-list{display:flex;flex-direction:column;gap:3px;overflow-y:auto;}
-.hi{
-  padding:5px 10px;background:var(--surf);border:1.5px solid var(--bd);
-  border-radius:7px;font-size:11.5px;color:var(--tx2);
-  cursor:pointer;transition:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  box-shadow:var(--shadow);
-}
+.hi{padding:4px 9px;background:var(--surf);border:1.5px solid var(--bd);border-radius:7px;
+  font-size:11px;color:var(--tx2);cursor:pointer;transition:var(--t);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .hi:hover{border-color:var(--blue2);color:var(--blue);background:var(--blue-d);}
 .hi strong{color:var(--tx3);font-weight:600;margin-right:4px;}
 
-/* cursor */
 @keyframes bk{0%,100%{opacity:1}50%{opacity:0}}
-.cur{
-  display:inline-block;width:2px;height:.95em;
-  background:var(--blue);margin-left:1px;
-  vertical-align:text-bottom;border-radius:1px;
-  animation:bk .75s ease-in-out infinite;
-}
+.cur{display:inline-block;width:2px;height:.9em;background:var(--blue);margin-left:1px;
+  vertical-align:text-bottom;border-radius:1px;animation:bk .75s ease-in-out infinite;}
 
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px;}
 ::-webkit-scrollbar-thumb:hover{background:#93C5FD;}
 
-/* ── MOBILE ── */
+/* MOBILE */
 @media(max-width:800px){
-  html,body{height:auto;overflow:auto;}
+  html,body{height:auto;overflow:auto;overflow-x:hidden;}
   body::after{display:none;}
-  .hd{padding:0 14px;}
-  .sb{height:auto;padding:10px 12px;flex-wrap:wrap;}
-  .sb-lbl{writing-mode:horizontal-tb;transform:none;}
+  .tb{height:auto;grid-template-columns:1fr;}
+  .tbc{border-right:none;border-bottom:1px solid var(--bd);}
+  .tbc:last-child{border-bottom:none;}
   .mc{height:auto;grid-template-columns:1fr;overflow:visible;}
-  .lp,.rp{overflow:visible;padding:10px;}
+  .lp,.rp{overflow:visible;padding:9px;}
   .lp{border-right:none;border-bottom:1px solid var(--bd);}
   .inp-wrap{flex:none;}
-  .ta{min-height:120px;}
-  .cr,.br{grid-template-columns:1fr;}
-  .out-box{min-height:200px;max-height:60vh;}
-  .btn-mic{padding:9px 18px;font-size:13.5px;width:100%;justify-content:center;}
-  .voice-row{flex-direction:column;align-items:flex-start;}
+  .ta{min-height:130px;}
+  .br{grid-template-columns:1fr;}
+  .out-box{max-height:60vh;}
+  .cmp-wrap.show{grid-template-columns:1fr;max-height:none;}
+  .cmp-pane{max-height:50vh;}
 }
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <header class="hd">
   <div class="hd-logo">嘴</div>
   <div>
     <div class="hd-title">嘴 替</div>
     <div class="hd-sub">I 人的 AI 嘴替助手</div>
   </div>
-  <span class="hd-badge">AI 驱动</span>
+  <span class="hd-badge">Claude Sonnet 4.6 · Claude Code 出品</span>
 </header>
 
-<div class="sb">
-  <div class="sb-lbl">场景</div>
-  <div class="sb-pills" id="sceneGrid">
-    <div class="sp on" data-v="official"><span class="e">📄</span>公文红头</div>
-    <div class="sp" data-v="report"><span class="e">📊</span>工作报告</div>
-    <div class="sp" data-v="wechat_msg"><span class="e">💬</span>微信消息</div>
-    <div class="sp" data-v="speech"><span class="e">🎤</span>发言稿</div>
-    <div class="sp" data-v="ppt"><span class="e">📑</span>PPT文案</div>
-    <div class="sp" data-v="work_summary"><span class="e">📝</span>工作总结</div>
-    <div class="sp" data-v="host"><span class="e">🎙️</span>活动主持词</div>
-    <div class="sp" data-v="wechat_article"><span class="e">📱</span>微信推文</div>
-    <div class="sp" data-v="short_video"><span class="e">🎬</span>短视频脚本</div>
-    <div class="sp" data-v="meeting_minutes"><span class="e">🗒️</span>会议纪要</div>
-    <div class="sp" data-v="invitation"><span class="e">✉️</span>邀请函</div>
-    <div class="sp" data-v="press_release"><span class="e">📰</span>新闻稿</div>
-    <div class="sp" data-v="thank_letter"><span class="e">🙏</span>感谢信/贺信</div>
-    <div class="sp" data-v="event_plan"><span class="e">📋</span>活动方案</div>
-    <div class="sp" data-v="proposal"><span class="e">📢</span>倡议书</div>
-    <div class="sp" data-v="survey_notice"><span class="e">📊</span>调研通知</div>
-    <div class="sp" data-v="custom"><span class="e">✨</span>自定义</div>
+<!-- Top Bar: 场景 | 处理方式 | 语气风格 -->
+<div class="tb">
+  <div class="tbc">
+    <div class="tbl">场景</div>
+    <div class="sb-pills" id="sceneGrid">
+      <div class="sp on" data-v="official"><span class="e">📄</span>公文红头</div>
+      <div class="sp" data-v="report"><span class="e">📊</span>工作报告</div>
+      <div class="sp" data-v="wechat_msg"><span class="e">💬</span>微信消息</div>
+      <div class="sp" data-v="speech"><span class="e">🎤</span>发言稿</div>
+      <div class="sp" data-v="ppt"><span class="e">📑</span>PPT文案</div>
+      <div class="sp" data-v="work_summary"><span class="e">📝</span>工作总结</div>
+      <div class="sp" data-v="host"><span class="e">🎙️</span>活动主持词</div>
+      <div class="sp" data-v="wechat_article"><span class="e">📱</span>微信推文</div>
+      <div class="sp" data-v="short_video"><span class="e">🎬</span>短视频脚本</div>
+      <div class="sp" data-v="meeting_minutes"><span class="e">🗒️</span>会议纪要</div>
+      <div class="sp" data-v="invitation"><span class="e">✉️</span>邀请函</div>
+      <div class="sp" data-v="press_release"><span class="e">📰</span>新闻稿</div>
+      <div class="sp" data-v="thank_letter"><span class="e">🙏</span>感谢信/贺信</div>
+      <div class="sp" data-v="event_plan"><span class="e">📋</span>活动方案</div>
+      <div class="sp" data-v="proposal"><span class="e">📢</span>倡议书</div>
+      <div class="sp" data-v="survey_notice"><span class="e">📊</span>调研通知</div>
+      <div class="sp" data-v="moments"><span class="e">🌅</span>发朋友圈</div>
+      <div class="sp" data-v="xiaohongshu"><span class="e">📕</span>发小红书</div>
+      <div class="sp" data-v="elder_msg"><span class="e">👴</span>给长辈消息</div>
+      <div class="sp" data-v="blessing"><span class="e">🎉</span>生日/节日祝福</div>
+      <div class="sp" data-v="leave_request"><span class="e">🙏</span>请假/请求说明</div>
+      <div class="sp" data-v="custom"><span class="e">✨</span>自定义</div>
+    </div>
+  </div>
+  <div class="tbc">
+    <div class="tbl am">处理方式 <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:9.5px;color:var(--tx3);margin-left:2px;">可多选</span></div>
+    <div class="tw" id="styleTags">
+      <div class="tag on" data-v="polish">✦ 整体润色</div>
+      <div class="tag" data-v="shorten">◀ 精简缩写</div>
+      <div class="tag" data-v="expand">▶ 扩充内容</div>
+      <div class="tag" data-v="formalize">书面化</div>
+      <div class="tag" data-v="professionalize">专业化</div>
+      <div class="tag" data-v="vague">〜 模糊处理</div>
+      <div class="tag" data-v="precise">◎ 精确表达</div>
+      <div class="tag" data-v="summarize">📌 提炼总结</div>
+      <div class="tag" data-v="translate">🌐 中英互译</div>
+      <div class="tag" data-v="outline">🗂 生成提纲</div>
+      <div class="tag" data-v="format">⊞ 格式整理</div>
+    </div>
+  </div>
+  <div class="tbc">
+    <div class="tbl pu">语气风格 <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:9.5px;color:var(--tx3);margin-left:2px;">单选</span></div>
+    <div class="tone-row" id="toneTags">
+      <div class="ttag on" data-v="">默认</div>
+      <div class="ttag" data-v="biz">💼 商务正式</div>
+      <div class="ttag" data-v="warm">🌸 温暖亲切</div>
+      <div class="ttag" data-v="playful">🎀 俏皮可爱</div>
+      <div class="ttag" data-v="human">✂️ 去AI味</div>
+      <div class="ttag" data-v="rigorous">🔍 严谨专业</div>
+      <div class="ttag" data-v="concise">⚡ 简洁有力</div>
+      <div class="ttag" data-v="humble">🤲 谦逊得体</div>
+      <div class="ttag" data-v="natural">🌿 平实自然</div>
+      <div class="ttag" data-v="fierce">🔥 言辞激烈</div>
+      <div class="ttag" data-v="chaotic">🌀 疯感</div>
+      <div class="ttag" data-v="humor">😄 幽默调侃</div>
+      <div class="ttag" data-v="trendy">✨ 网感流行</div>
+      <div class="ttag" data-v="literary">📖 文学修饰</div>
+      <div class="ttag" data-v="classical">🏛 引经据典</div>
+    </div>
   </div>
 </div>
 
+<!-- Main: 输入 | 输出 -->
 <div class="mc">
+  <!-- LEFT: 发送对象 + 输入 + 文件+额外 + 提交 -->
   <div class="lp">
-    <div class="cr">
-      <div class="card">
-        <div class="lbl">处理方式 <span class="lbl-note">可多选</span></div>
-        <div class="tw" id="styleTags">
-          <div class="tag on" data-v="polish">✦ 整体润色</div>
-          <div class="tag" data-v="shorten">◀ 精简缩写</div>
-          <div class="tag" data-v="expand">▶ 扩充内容</div>
-          <div class="tag" data-v="formalize">书面化</div>
-          <div class="tag" data-v="professionalize">专业化</div>
-          <div class="tag" data-v="vague">〜 模糊处理</div>
-          <div class="tag" data-v="precise">◎ 精确表达</div>
-          <div class="tag" data-v="summarize">📌 提炼总结</div>
-          <div class="tag" data-v="translate">🌐 中英互译</div>
-          <div class="tag" data-v="outline">🗂 生成提纲</div>
-          <div class="tag" data-v="format">⊞ 格式整理</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="lbl">发送对象 <span class="lbl-note">可选</span></div>
-        <div class="tw" id="recipientTags">
-          <div class="rtag on" data-v="">不限</div>
-          <div class="rtag" data-v="政府人员">🏛 政府人员</div>
-          <div class="rtag" data-v="上级领导">👔 上级领导</div>
-          <div class="rtag" data-v="会员单位">🤝 会员单位</div>
-          <div class="rtag" data-v="合作方">🔗 合作方</div>
-          <div class="rtag" data-v="同事">👥 同事</div>
-          <div class="rtag" data-v="专家学者">🎓 专家学者</div>
-          <div class="rtag" data-v="公众/读者">👁 公众/读者</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tone selector -->
-    <div class="card" style="flex-shrink:0;">
-      <div class="lbl">语气风格 <span class="lbl-note">可选，单选</span></div>
-      <div class="tone-row" id="toneTags">
-        <div class="ttag on" data-v="">默认</div>
-        <div class="ttag" data-v="biz">💼 商务正式</div>
-        <div class="ttag" data-v="warm">🌸 温暖亲切</div>
-        <div class="ttag" data-v="playful">🎀 俏皮可爱</div>
-        <div class="ttag" data-v="human">✂️ 去AI味</div>
-        <div class="ttag" data-v="rigorous">🔍 严谨专业</div>
-        <div class="ttag" data-v="concise">⚡ 简洁有力</div>
-        <div class="ttag" data-v="humble">🤲 谦逊得体</div>
-        <div class="ttag" data-v="natural">🌿 平实自然</div>
+    <div class="card">
+      <div class="lbl">发送对象 <span class="lbl-note">可选</span></div>
+      <div class="rtw" id="recipientTags">
+        <div class="rtag on" data-v="">不限</div>
+        <div class="rtag" data-v="政府人员">🏛 政府人员</div>
+        <div class="rtag" data-v="上级领导">👔 上级领导</div>
+        <div class="rtag" data-v="会员单位">🤝 会员单位</div>
+        <div class="rtag" data-v="合作方">🔗 合作方</div>
+        <div class="rtag" data-v="同事">👥 同事</div>
+        <div class="rtag" data-v="专家学者">🎓 专家学者</div>
+        <div class="rtag" data-v="公众/读者">👁 公众/读者</div>
       </div>
     </div>
 
@@ -462,28 +341,25 @@ body::after{
         <div class="lbl">输入文字 <span class="lbl-note">Ctrl+Enter 提交</span></div>
         <textarea class="ta" id="inputText"
           placeholder="在此粘贴或输入需要处理的文字…&#10;&#10;也可以直接上传文件。"></textarea>
-        <!-- Voice input row: desktop only -->
-        <div class="voice-row" id="voiceDesktop">
+        <div class="vrow" id="voiceDesktop">
           <button class="btn-mic" id="micBtn" onclick="toggleVoice()">
-            <span class="mic-dot"></span>
-            <span id="micText">🎤 语音输入</span>
+            <span class="mic-dot"></span><span id="micText">🎤 语音输入</span>
           </button>
-          <span class="voice-hint" id="voiceHint">点击开始录音，再次点击停止</span>
+          <span class="vhint" id="vhint">点击开始录音，再次点击停止</span>
         </div>
-        <!-- Mobile hint -->
-        <div class="voice-row" id="voiceMobile" style="display:none;">
-          <span class="voice-hint">📱 手机请点击键盘上的 🎤 按钮直接语音输入</span>
+        <div class="vrow" id="voiceMobile" style="display:none">
+          <span class="vhint">📱 手机请点击键盘上的 🎤 按钮语音输入</span>
         </div>
       </div>
     </div>
 
     <div class="br">
       <div>
-        <div class="br-lbl">上传文件 <span class="br-note">Word / PDF / TXT</span></div>
+        <div class="br-lbl">上传文件 <span class="br-note">Word/PDF/TXT</span></div>
         <div class="fd" id="fileDrop">
           <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
           <div class="fd-ic">📎</div>
-          <div class="fd-h">点击选择或拖拽</div>
+          <div class="fd-h">点击或拖拽</div>
           <div class="fc" id="fileChosen">
             <span id="fileNameText"></span>
             <span class="fc-x" id="clearFile">✕</span>
@@ -492,43 +368,39 @@ body::after{
       </div>
       <div>
         <div class="br-lbl">额外要求 <span class="br-note">可选</span></div>
-        <textarea class="ex" id="extraReq"
-          placeholder="例如：语气更温和、不超过200字…"></textarea>
+        <textarea class="ex" id="extraReq" placeholder="例如：不超过200字、重点突出…"></textarea>
       </div>
     </div>
 
     <button class="btn-go" id="submitBtn" onclick="doPolish()">开 始 处 理</button>
   </div>
 
+  <!-- RIGHT: 输出 -->
   <div class="rp">
     <div class="out-hd">
       <div class="out-title">处理结果</div>
-      <div style="display:flex;gap:6px;align-items:center;">
+      <div class="out-acts">
         <button class="btn-cmp" id="cmpBtn" onclick="toggleCompare()">对比原文</button>
         <button class="btn-cp" id="copyBtn" onclick="copyResult()">复制结果</button>
       </div>
     </div>
-    <!-- Normal output -->
     <div class="out-box" id="outputBox">
       <div class="ph" id="placeholder">
         <div class="ph-i">✦</div>
         <div class="ph-t">选好场景和处理方式<br>输入文字后点击「开始处理」</div>
       </div>
     </div>
-    <!-- Compare view -->
     <div class="cmp-wrap" id="cmpWrap">
       <div class="cmp-pane cmp-pane-orig">
-        <span class="cmp-label">原文</span>
+        <span class="cmp-head">原文（红色=被修改）</span>
         <div id="cmpOrig"></div>
       </div>
       <div class="cmp-pane">
-        <span class="cmp-label">处理结果</span>
+        <span class="cmp-head">处理结果（绿色=新增）</span>
         <div id="cmpResult"></div>
       </div>
     </div>
-    <div class="out-ft">
-      <span class="ci" id="charInfo"></span>
-    </div>
+    <div class="out-ft"><span class="ci" id="charInfo"></span></div>
     <div class="hs" id="historySection">
       <div class="hs-lbl">会话历史</div>
       <div class="hs-list" id="historyList"></div>
@@ -539,247 +411,203 @@ body::after{
 <script>
 const $ = id => document.getElementById(id);
 
-// 手机检测：显示键盘语音提示，隐藏语音按钮
+// mobile detection
 if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-  document.addEventListener('DOMContentLoaded', () => {
-    const d = $('voiceDesktop'), m = $('voiceMobile');
-    if (d) d.style.display = 'none';
-    if (m) m.style.display = 'flex';
-  });
+  const d=$('voiceDesktop'),m=$('voiceMobile');
+  if(d)d.style.display='none'; if(m)m.style.display='flex';
 }
 
-$('sceneGrid').addEventListener('click', e => {
-  const b = e.target.closest('.sp'); if (!b) return;
-  document.querySelectorAll('.sp').forEach(x => x.classList.remove('on'));
-  b.classList.add('on');
+// scene
+$('sceneGrid').addEventListener('click',e=>{
+  const b=e.target.closest('.sp');if(!b)return;
+  document.querySelectorAll('.sp').forEach(x=>x.classList.remove('on'));b.classList.add('on');
 });
-$('styleTags').addEventListener('click', e => {
-  const t = e.target.closest('.tag'); if (!t) return;
+// style
+$('styleTags').addEventListener('click',e=>{
+  const t=e.target.closest('.tag');if(!t)return;
   t.classList.toggle('on');
-  if (!document.querySelectorAll('.tag.on').length) t.classList.add('on');
+  if(!document.querySelectorAll('.tag.on').length)t.classList.add('on');
 });
-$('recipientTags').addEventListener('click', e => {
-  const t = e.target.closest('.rtag'); if (!t) return;
-  document.querySelectorAll('.rtag').forEach(x => x.classList.remove('on'));
-  t.classList.add('on');
+// tone
+$('toneTags').addEventListener('click',e=>{
+  const t=e.target.closest('.ttag');if(!t)return;
+  document.querySelectorAll('.ttag').forEach(x=>x.classList.remove('on'));t.classList.add('on');
 });
-$('toneTags').addEventListener('click', e => {
-  const t = e.target.closest('.ttag'); if (!t) return;
-  document.querySelectorAll('.ttag').forEach(x => x.classList.remove('on'));
-  t.classList.add('on');
+// recipient
+$('recipientTags').addEventListener('click',e=>{
+  const t=e.target.closest('.rtag');if(!t)return;
+  document.querySelectorAll('.rtag').forEach(x=>x.classList.remove('on'));t.classList.add('on');
 });
 
-let file = null;
-const drop = $('fileDrop'), inp = $('fileInput');
-drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('ov'); });
-drop.addEventListener('dragleave', () => drop.classList.remove('ov'));
-drop.addEventListener('drop', e => {
-  e.preventDefault(); drop.classList.remove('ov');
-  if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
-});
-inp.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
-$('clearFile').addEventListener('click', e => {
-  e.stopPropagation(); file = null; inp.value = '';
-  $('fileChosen').classList.remove('show');
-});
-function setFile(f) {
-  file = f; $('fileNameText').textContent = f.name;
-  $('fileChosen').classList.add('show');
+// file
+let file=null;
+const drop=$('fileDrop'),inp=$('fileInput');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('ov');});
+drop.addEventListener('dragleave',()=>drop.classList.remove('ov'));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('ov');
+  if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);});
+inp.addEventListener('change',e=>{if(e.target.files[0])setFile(e.target.files[0]);});
+$('clearFile').addEventListener('click',e=>{e.stopPropagation();file=null;inp.value='';
+  $('fileChosen').classList.remove('show');});
+function setFile(f){file=f;$('fileNameText').textContent=f.name;$('fileChosen').classList.add('show');}
+$('inputText').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))doPolish();});
+
+// ── voice ──
+const SpeechRec=window.SpeechRecognition||window.webkitSpeechRecognition;
+let isRec=false,baseText='';
+function toggleVoice(){
+  if(!SpeechRec){alert('语音输入说明：\n· iPhone/iPad：请用 Safari\n· 安卓：请用 Chrome\n· 电脑：Chrome 或 Edge');return;}
+  isRec?stopVoice():startVoice();
 }
-$('inputText').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) doPolish();
-});
-
-// ── Voice Input ──
-const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-let isRec = false, baseText = '';
-
-function toggleVoice() {
-  if (!SpeechRec) {
-    alert('语音输入说明：\n· iPhone / iPad：请用 Safari 浏览器打开本页\n· 安卓手机：请用 Chrome 浏览器\n· 电脑：Chrome 或 Edge 均支持');
-    return;
-  }
-  isRec ? stopVoice() : startVoice();
-}
-
-function startVoice() {
-  // 注意：不能用 async/await！iOS Safari 要求 r.start() 必须在同步的用户点击事件中调用，
-  // 一旦中间有 await 就脱离用户手势上下文，iOS 会静默拒绝。
-  // 直接调用 runSession()，让 SpeechRecognition 自己触发权限弹窗。
-  isRec = true;
-  baseText = $('inputText').value;
-  $('micBtn').classList.add('rec');
-  $('micText').textContent = '⏹ 停止录音';
-  $('voiceHint').textContent = '● 正在录音中，再次点击停止';
-  $('voiceHint').classList.add('active');
+function startVoice(){
+  isRec=true;baseText=$('inputText').value;
+  $('micBtn').classList.add('rec');$('micText').textContent='⏹ 停止录音';
+  $('vhint').textContent='● 正在录音，再次点击停止';$('vhint').classList.add('act');
   runSession();
 }
-
-function runSession() {
-  if (!isRec) return;
-  const r = new SpeechRec();
-  r.lang = 'zh-CN';
-  r.continuous = false;    // false 兼容性最好，含 iOS
-  r.interimResults = true;
-
-  const ta = $('inputText');
-
-  r.onresult = e => {
-    let interim = '', final = '';
-    for (let i = e.resultIndex; i < e.results.length; i++)
-      e.results[i].isFinal
-        ? (final += e.results[i][0].transcript)
-        : (interim += e.results[i][0].transcript);
-    if (final) baseText += final;
-    ta.value = baseText + interim;
-    ta.scrollTop = ta.scrollHeight;
-  };
-
-  r.onerror = e => {
-    const vh = $('voiceHint');
-    if (e.error === 'no-speech') return; // 正常，无人说话，继续等
-    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-      vh.textContent = '⚠ 权限不足，请在设置中开启麦克风';
-      vh.classList.add('active'); stopVoice();
-    } else if (e.error === 'audio-capture') {
-      vh.textContent = '⚠ 无法捕获麦克风，请检查硬件或重试';
-      vh.classList.add('active'); stopVoice();
-    } else if (e.error === 'network') {
-      vh.textContent = '⚠ 语音识别需要联网，请检查网络';
-      vh.classList.add('active'); stopVoice();
-    } else {
-      vh.textContent = `⚠ 错误：${e.error}，将自动重试`;
-      // 非致命错误，让 onend 继续重启
-    }
-  };
-
-  r.onend = () => {
-    if (isRec) setTimeout(runSession, 120); // 重新开始，120ms 间隔兼容 iOS
-  };
-
-  try { r.start(); } catch(e) { stopVoice(); }
+function runSession(){
+  if(!isRec)return;
+  const r=new SpeechRec();r.lang='zh-CN';r.continuous=false;r.interimResults=true;
+  const ta=$('inputText');
+  r.onresult=e=>{let interim='',final='';
+    for(let i=e.resultIndex;i<e.results.length;i++)
+      e.results[i].isFinal?(final+=e.results[i][0].transcript):(interim+=e.results[i][0].transcript);
+    if(final)baseText+=final;ta.value=baseText+interim;ta.scrollTop=ta.scrollHeight;};
+  r.onerror=e=>{if(e.error==='no-speech')return;
+    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+      $('vhint').textContent='⚠ 麦克风权限不足';$('vhint').classList.add('act');stopVoice();}
+    else if(e.error==='audio-capture'){
+      $('vhint').textContent='⚠ 无法捕获麦克风';$('vhint').classList.add('act');stopVoice();}};
+  r.onend=()=>{if(isRec)setTimeout(runSession,150);};
+  try{r.start();}catch(e){stopVoice();}
+}
+function stopVoice(){
+  isRec=false;$('micBtn').classList.remove('rec');
+  $('micText').textContent='🎤 语音输入';
+  $('vhint').textContent='点击开始录音，再次点击停止';$('vhint').classList.remove('act');
 }
 
-function stopVoice() {
-  isRec = false;
-  $('micBtn').classList.remove('rec');
-  $('micText').textContent = '🎤 语音输入';
-  $('voiceHint').textContent = '点击开始录音，再次点击停止';
-  $('voiceHint').classList.remove('active');
+// ── char diff ──
+function diffChars(a,b){
+  const MAX=4000;if(a.length>MAX||b.length>MAX)return null;
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},()=>new Int16Array(n+1));
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
+  const ops=[];let i=m,j=n;
+  while(i>0||j>0){
+    if(i>0&&j>0&&a[i-1]===b[j-1]){ops.push({t:'eq',c:a[i-1]});i--;j--;}
+    else if(j>0&&(i===0||dp[i][j-1]>=dp[i-1][j])){ops.push({t:'ins',c:b[j-1]});j--;}
+    else{ops.push({t:'del',c:a[i-1]});i--;}
+  }
+  ops.reverse();return ops;
+}
+function esc(c){return c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+function renderDiff(ops,side){
+  if(!ops)return null;
+  return ops.map(op=>{
+    const c=esc(op.c);
+    if(op.t==='eq')return c;
+    if(op.t==='del'&&side==='orig')return`<mark class="d-del">${c}</mark>`;
+    if(op.t==='ins'&&side==='res')return`<mark class="d-ins">${c}</mark>`;
+    return''; // skip del on res side, skip ins on orig side
+  }).join('');
 }
 
-// ── Compare ──
-let savedOrig = '';
-function toggleCompare() {
-  const box = $('outputBox'), wrap = $('cmpWrap'), btn = $('cmpBtn');
-  if (wrap.classList.contains('show')) {
-    wrap.classList.remove('show'); box.style.display = '';
-    btn.classList.remove('on'); btn.textContent = '对比原文';
+// ── compare ──
+let savedOrig='',savedResult='';
+function toggleCompare(){
+  const box=$('outputBox'),wrap=$('cmpWrap'),btn=$('cmpBtn');
+  if(wrap.classList.contains('show')){
+    wrap.classList.remove('show');box.style.display='';
+    btn.classList.remove('on');btn.textContent='对比原文';
   } else {
-    $('cmpOrig').textContent = savedOrig;
-    $('cmpResult').textContent = box.textContent;
-    wrap.classList.add('show'); box.style.display = 'none';
-    btn.classList.add('on'); btn.textContent = '隐藏对比';
+    const ops=diffChars(savedOrig,savedResult);
+    if(ops){
+      $('cmpOrig').innerHTML=renderDiff(ops,'orig');
+      $('cmpResult').innerHTML=renderDiff(ops,'res');
+    } else {
+      $('cmpOrig').textContent=savedOrig;
+      $('cmpResult').textContent=savedResult;
+    }
+    wrap.classList.add('show');box.style.display='none';
+    btn.classList.add('on');btn.textContent='隐藏对比';
   }
 }
 
-// ── History ──
-const hist = [];
-function addHist(scene, result) {
-  hist.unshift({ scene, result, t: new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}) });
-  if (hist.length > 6) hist.pop();
-  renderHist();
-}
-function renderHist() {
-  if (!hist.length) return;
+// ── history ──
+const hist=[];
+function addHist(scene,result){
+  hist.unshift({scene,result,t:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
+  if(hist.length>6)hist.pop();
+  if(!hist.length)return;
   $('historySection').classList.add('show');
-  $('historyList').innerHTML = hist.map((h,i) =>
+  $('historyList').innerHTML=hist.map((h,i)=>
     `<div class="hi" onclick="restoreHist(${i})"><strong>${h.t}</strong>${h.scene} · ${h.result.slice(0,50).replace(/\n/g,' ')}…</div>`
   ).join('');
 }
-function restoreHist(i) {
-  const h = hist[i];
-  $('outputBox').textContent = h.result;
-  $('charInfo').textContent = `${h.result.length} 字`;
-  const cb = $('copyBtn');
-  cb.className = 'btn-cp show'; cb.textContent = '复制结果';
+function restoreHist(i){
+  const h=hist[i];$('outputBox').textContent=h.result;
+  $('charInfo').textContent=`${h.result.length} 字`;
+  const cb=$('copyBtn');cb.className='btn-cp show';cb.textContent='复制结果';
 }
 
-// ── Main ──
-async function doPolish() {
-  const text = $('inputText').value.trim();
-  const sp = document.querySelector('.sp.on');
-  const scene = sp?.dataset.v || 'official';
-  const sceneName = sp?.textContent.trim() || '';
-  const styles = Array.from(document.querySelectorAll('.tag.on')).map(t=>t.dataset.v).join(',');
-  const recipient = document.querySelector('.rtag.on')?.dataset.v || '';
-  const tone = document.querySelector('.ttag.on')?.dataset.v || '';
-  const extra = $('extraReq').value.trim();
-  if (!text && !file) { alert('请输入文字或上传文件'); return; }
-  if (isRec) stopVoice();
-  savedOrig = text; // 保存原文用于对比
-  // 重置对比视图
-  $('cmpWrap').classList.remove('show');
-  $('outputBox').style.display = '';
-  const cb2 = $('cmpBtn'); cb2.classList.remove('on','show'); cb2.textContent = '对比原文';
+// ── main ──
+async function doPolish(){
+  const text=$('inputText').value.trim();
+  const sp=document.querySelector('.sp.on');
+  const scene=sp?.dataset.v||'official';
+  const sceneName=sp?.textContent.trim()||'';
+  const styles=Array.from(document.querySelectorAll('.tag.on')).map(t=>t.dataset.v).join(',');
+  const recipient=document.querySelector('.rtag.on')?.dataset.v||'';
+  const tone=document.querySelector('.ttag.on')?.dataset.v||'';
+  const extra=$('extraReq').value.trim();
+  if(!text&&!file){alert('请输入文字或上传文件');return;}
+  if(isRec)stopVoice();
+  savedOrig=text;savedResult='';
+  $('cmpWrap').classList.remove('show');$('outputBox').style.display='';
+  const cb2=$('cmpBtn');cb2.classList.remove('on','show');cb2.textContent='对比原文';
 
-  const btn = $('submitBtn');
-  btn.disabled = true; btn.textContent = '处 理 中 …';
-  const box = $('outputBox');
-  $('placeholder')?.remove();
-  box.textContent = '';
-  const cur = document.createElement('span');
-  cur.className = 'cur'; box.appendChild(cur);
-  $('copyBtn').classList.remove('show');
-  $('charInfo').textContent = '';
+  const btn=$('submitBtn');btn.disabled=true;btn.textContent='处 理 中 …';
+  const box=$('outputBox');$('placeholder')?.remove();box.textContent='';
+  const cur=document.createElement('span');cur.className='cur';box.appendChild(cur);
+  $('copyBtn').classList.remove('show');$('charInfo').textContent='';
 
-  const fd = new FormData();
-  fd.append('text', text); fd.append('scene', scene);
-  fd.append('styles', styles); fd.append('custom_req', extra);
-  fd.append('recipient', recipient); fd.append('tone', tone);
-  if (file) fd.append('file', file);
+  const fd=new FormData();
+  fd.append('text',text);fd.append('scene',scene);fd.append('styles',styles);
+  fd.append('custom_req',extra);fd.append('recipient',recipient);fd.append('tone',tone);
+  if(file)fd.append('file',file);
 
-  try {
-    const resp = await fetch('/polish', { method:'POST', body:fd });
-    if (!resp.ok) throw new Error(`服务器错误 ${resp.status}`);
-    const reader = resp.body.getReader();
-    const dec = new TextDecoder();
-    let result = '';
-    box.textContent = '';
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      result += dec.decode(value, {stream:true});
-      box.textContent = result;
-      box.appendChild(cur);
-      box.scrollTop = box.scrollHeight;
+  try{
+    const resp=await fetch('/polish',{method:'POST',body:fd});
+    if(!resp.ok)throw new Error(`服务器错误 ${resp.status}`);
+    const reader=resp.body.getReader();const dec=new TextDecoder();
+    let result='';box.textContent='';
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      result+=dec.decode(value,{stream:true});
+      box.textContent=result;box.appendChild(cur);box.scrollTop=box.scrollHeight;
     }
     cur.remove();
-    if (result) {
-      $('charInfo').textContent = `${result.length} 字`;
-      const cb = $('copyBtn');
-      cb.className = 'btn-cp show'; cb.textContent = '复制结果';
-      if (savedOrig) { $('cmpBtn').classList.add('show'); }
-      addHist(sceneName, result);
+    if(result){
+      savedResult=result;
+      $('charInfo').textContent=`${result.length} 字`;
+      const cb=$('copyBtn');cb.className='btn-cp show';cb.textContent='复制结果';
+      if(savedOrig)$('cmpBtn').classList.add('show');
+      addHist(sceneName,result);
     }
-  } catch(err) {
-    cur.remove();
-    box.textContent = '❌ 处理失败：' + err.message;
-  } finally {
-    btn.disabled = false; btn.textContent = '开 始 处 理';
-  }
+  }catch(err){cur.remove();box.textContent='❌ 处理失败：'+err.message;}
+  finally{btn.disabled=false;btn.textContent='开 始 处 理';}
 }
 
-function copyResult() {
-  const text = $('outputBox').textContent.trim();
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = $('copyBtn');
-    btn.textContent = '✓ 已复制'; btn.classList.add('ok');
-    setTimeout(() => { btn.textContent = '复制结果'; btn.classList.remove('ok'); }, 2000);
-  }).catch(() => {
-    const ta = Object.assign(document.createElement('textarea'), {value:text});
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+function copyResult(){
+  const text=$('outputBox').textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=$('copyBtn');btn.textContent='✓ 已复制';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='复制结果';btn.classList.remove('ok');},2000);
+  }).catch(()=>{
+    const ta=Object.assign(document.createElement('textarea'),{value:text});
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
   });
 }
 </script>
