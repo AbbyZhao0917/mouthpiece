@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>CCFA 文字工坊</title>
+<title>文字工坊</title>
 <style>
 :root {
   --primary: #1B3F6E;
@@ -136,10 +136,10 @@ body {
 /* ── Scene Grid ── */
 .scene-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
 }
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .scene-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 380px) {
@@ -429,8 +429,8 @@ body {
 <header class="header">
   <div class="logo">文</div>
   <div class="header-text">
-    <div class="header-title">CCFA 文字工坊</div>
-    <div class="header-sub">中国连锁经营协会 · 专业文字助手</div>
+    <div class="header-title">文 字 工 坊</div>
+    <div class="header-sub">智能文字处理助手</div>
   </div>
   <div class="header-badge">AI 驱动</div>
 </header>
@@ -452,17 +452,9 @@ body {
           <div class="scene-icon">📊</div>
           <div class="scene-name">工作<br>报告</div>
         </div>
-        <div class="scene-btn" data-v="leader_msg">
+        <div class="scene-btn" data-v="wechat_msg">
           <div class="scene-icon">💬</div>
-          <div class="scene-name">给领导<br>的消息</div>
-        </div>
-        <div class="scene-btn" data-v="gov_msg">
-          <div class="scene-icon">🏛️</div>
-          <div class="scene-name">给政府<br>的消息</div>
-        </div>
-        <div class="scene-btn" data-v="member_msg">
-          <div class="scene-icon">🤝</div>
-          <div class="scene-name">给会员<br>的消息</div>
+          <div class="scene-name">微信<br>消息</div>
         </div>
         <div class="scene-btn" data-v="speech">
           <div class="scene-icon">🎤</div>
@@ -470,7 +462,7 @@ body {
         </div>
         <div class="scene-btn" data-v="ppt">
           <div class="scene-icon">📑</div>
-          <div class="scene-name">PPT<br>要点</div>
+          <div class="scene-name">PPT<br>文案</div>
         </div>
         <div class="scene-btn" data-v="work_summary">
           <div class="scene-icon">📝</div>
@@ -478,7 +470,43 @@ body {
         </div>
         <div class="scene-btn" data-v="host">
           <div class="scene-icon">🎙️</div>
-          <div class="scene-name">主持词</div>
+          <div class="scene-name">活动<br>主持词</div>
+        </div>
+        <div class="scene-btn" data-v="wechat_article">
+          <div class="scene-icon">📱</div>
+          <div class="scene-name">微信<br>推文</div>
+        </div>
+        <div class="scene-btn" data-v="short_video">
+          <div class="scene-icon">🎬</div>
+          <div class="scene-name">短视频<br>脚本</div>
+        </div>
+        <div class="scene-btn" data-v="meeting_minutes">
+          <div class="scene-icon">🗒️</div>
+          <div class="scene-name">会议<br>纪要</div>
+        </div>
+        <div class="scene-btn" data-v="invitation">
+          <div class="scene-icon">✉️</div>
+          <div class="scene-name">邀请函</div>
+        </div>
+        <div class="scene-btn" data-v="press_release">
+          <div class="scene-icon">📰</div>
+          <div class="scene-name">新闻稿</div>
+        </div>
+        <div class="scene-btn" data-v="thank_letter">
+          <div class="scene-icon">🙏</div>
+          <div class="scene-name">感谢信<br>贺信</div>
+        </div>
+        <div class="scene-btn" data-v="event_plan">
+          <div class="scene-icon">📋</div>
+          <div class="scene-name">活动<br>方案</div>
+        </div>
+        <div class="scene-btn" data-v="proposal">
+          <div class="scene-icon">📢</div>
+          <div class="scene-name">倡议书</div>
+        </div>
+        <div class="scene-btn" data-v="survey_notice">
+          <div class="scene-icon">📊</div>
+          <div class="scene-name">调研<br>通知</div>
         </div>
         <div class="scene-btn" data-v="custom">
           <div class="scene-icon">✨</div>
@@ -499,6 +527,9 @@ body {
         <div class="tag" data-v="vague">〜 模糊处理</div>
         <div class="tag" data-v="precise">◎ 精确表达</div>
         <div class="tag" data-v="summarize">📌 提炼总结</div>
+        <div class="tag" data-v="translate">🌐 中英互译</div>
+        <div class="tag" data-v="outline">🗂 生成提纲</div>
+        <div class="tag" data-v="format">⊞ 格式整理</div>
       </div>
     </div>
 
@@ -560,7 +591,7 @@ body {
 
 </div>
 
-<div class="footer">CCFA 文字工坊 · 专为中国连锁经营协会定制</div>
+<div class="footer">文字工坊 · AI 驱动的专业文字助手</div>
 
 <script>
 const $ = id => document.getElementById(id);
