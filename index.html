@@ -224,6 +224,27 @@ body {
 }
 .textarea::placeholder { color: #B0BFCC; }
 
+/* ── Recipient Tags (single-select) ── */
+.rtag {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.rtag:hover { border-color: var(--accent); color: var(--primary); }
+.rtag.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: var(--accent);
+  color: var(--primary);
+  font-weight: 600;
+}
+
 /* ── File Drop ── */
 .file-drop {
   border: 2px dashed var(--border);
@@ -533,6 +554,21 @@ body {
       </div>
     </div>
 
+    <!-- Recipient -->
+    <div class="card">
+      <div class="section-label">发送对象 <span class="section-note">可选，选后 AI 自动调整语气</span></div>
+      <div class="tags-wrap" id="recipientTags">
+        <div class="rtag active" data-v="">不限</div>
+        <div class="rtag" data-v="政府人员">🏛 政府人员</div>
+        <div class="rtag" data-v="上级领导">👔 上级领导</div>
+        <div class="rtag" data-v="会员单位">🤝 会员单位</div>
+        <div class="rtag" data-v="合作方">🔗 合作方</div>
+        <div class="rtag" data-v="同事">👥 同事</div>
+        <div class="rtag" data-v="专家学者">🎓 专家学者</div>
+        <div class="rtag" data-v="公众/读者">👁 公众/读者</div>
+      </div>
+    </div>
+
     <!-- Text Input -->
     <div class="card">
       <div class="section-label">输入文字 <span class="section-note">Ctrl+Enter 快速提交</span></div>
@@ -610,6 +646,14 @@ $('styleTags').addEventListener('click', e => {
   if (!t) return;
   t.classList.toggle('active');
   if (!document.querySelectorAll('.tag.active').length) t.classList.add('active');
+});
+
+// ── Recipient tags: single select ──
+$('recipientTags').addEventListener('click', e => {
+  const t = e.target.closest('.rtag');
+  if (!t) return;
+  document.querySelectorAll('.rtag').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
 });
 
 // ── File handling ──
@@ -694,11 +738,13 @@ async function doPolish() {
   $('copyBtn').classList.remove('show');
   $('charInfo').textContent = '';
 
+  const recipient = document.querySelector('.rtag.active')?.dataset.v || '';
   const fd = new FormData();
   fd.append('text', text);
   fd.append('scene', scene);
   fd.append('styles', styles);
   fd.append('custom_req', extra);
+  fd.append('recipient', recipient);
   if (file) fd.append('file', file);
 
   try {

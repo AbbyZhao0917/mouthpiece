@@ -59,6 +59,7 @@ async def polish(
     scene: str = Form(default="official"),
     styles: str = Form(default="polish"),
     custom_req: str = Form(default=""),
+    recipient: str = Form(default=""),
     file: UploadFile = File(default=None),
 ):
     file_text = ""
@@ -96,6 +97,7 @@ async def polish(
     user_msg = (
         f"【场景】{scene_name}：{scene_desc}\n"
         f"【处理方式】{style_descs}\n"
+        + (f"【发送对象】{recipient}，请据此调整语气、措辞和正式程度\n" if recipient.strip() else "")
         + (f"【额外要求】{custom_req}\n" if custom_req.strip() else "")
         + f"\n【原文】\n{combined}\n\n请直接输出处理结果："
     )
