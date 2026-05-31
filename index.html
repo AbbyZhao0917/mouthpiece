@@ -3,747 +3,579 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>文字工坊</title>
+<title>言值+</title>
 <style>
 :root {
-  --primary: #1B3F6E;
-  --primary-2: #2455A4;
-  --accent: #C9A227;
-  --accent-2: #E8C050;
-  --bg: #EEF2F7;
+  --blue-900: #0F172A;
+  --blue-800: #1E3A8A;
+  --blue-700: #1D4ED8;
+  --blue-600: #2563EB;
+  --blue-500: #3B82F6;
+  --blue-100: #DBEAFE;
+  --blue-50:  #EFF6FF;
+  --amber-600: #D97706;
+  --amber-400: #FBBF24;
+  --amber-50:  #FFFBEB;
+  --slate-900: #0F172A;
+  --slate-700: #334155;
+  --slate-500: #64748B;
+  --slate-400: #94A3B8;
+  --slate-200: #E2E8F0;
+  --slate-100: #F1F5F9;
+  --slate-50:  #F8FAFC;
+  --green-600: #059669;
   --surface: #FFFFFF;
-  --surface-2: #F6F9FC;
-  --text: #1E2A38;
-  --text-muted: #6B7A8D;
-  --border: #D6E2EF;
-  --success: #27AE60;
-  --danger: #E74C3C;
-  --r: 12px;
-  --shadow: 0 2px 16px rgba(27,63,110,0.09);
-  --shadow-lg: 0 6px 28px rgba(27,63,110,0.16);
+  --bg: #EEF2F7;
+  --header-h: 58px;
+  --scene-h: 92px;
+  --radius: 10px;
+  --shadow: 0 1px 4px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 14px rgba(15,23,42,0.10);
+  --t: all 0.16s cubic-bezier(0.4,0,0.2,1);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+html,body{height:100%;overflow:hidden;}
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei UI", "Segoe UI", sans-serif;
   background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
+  color: var(--slate-900);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Header ── */
-.header {
-  background: linear-gradient(135deg, var(--primary) 0%, #1F4E9A 60%, var(--primary-2) 100%);
-  padding: 0 24px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.22);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo {
-  width: 42px; height: 42px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; font-weight: 900;
-  color: var(--primary);
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.header-text { line-height: 1; }
-.header-title {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
-.header-sub {
-  color: rgba(255,255,255,0.55);
-  font-size: 11.5px;
-  letter-spacing: 1.5px;
-  margin-top: 3px;
-}
-.header-badge {
-  margin-left: auto;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.75);
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
+/* subtle dot grid */
+body::after {
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image: radial-gradient(circle, rgba(59,130,246,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* ── Layout ── */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 16px 32px;
-  display: grid;
-  grid-template-columns: 55% 1fr;
-  gap: 18px;
-  align-items: start;
+/* ── HEADER ── */
+.hd {
+  position:relative;z-index:20;
+  height:var(--header-h);
+  background: linear-gradient(100deg, #0C1A3A 0%, #1A3575 50%, #1D4ED8 100%);
+  display:flex;align-items:center;gap:13px;padding:0 20px;
+  box-shadow: 0 2px 20px rgba(10,20,60,0.35);
 }
-@media (max-width: 800px) {
-  .container { grid-template-columns: 1fr; }
-  .output-sticky { position: static !important; }
+.hd-logo {
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(135deg,#F59E0B,#FBBF24);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:900;color:#0C1A3A;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);letter-spacing:-1px;
+}
+.hd-name {
+  color:#fff;font-size:18px;font-weight:700;letter-spacing:4px;
+}
+.hd-sub {
+  color:rgba(255,255,255,0.38);font-size:10.5px;letter-spacing:1.2px;margin-top:2px;
+}
+.hd-badge {
+  margin-left:auto;
+  background:rgba(59,130,246,0.2);
+  border:1px solid rgba(59,130,246,0.35);
+  color:#93C5FD;font-size:10.5px;font-weight:600;
+  padding:3px 10px;border-radius:999px;letter-spacing:0.5px;
 }
 
-/* ── Card ── */
+/* ── SCENE BAND ── */
+.sb {
+  position:relative;z-index:19;
+  height:var(--scene-h);
+  background:var(--surface);
+  border-bottom:1px solid var(--slate-200);
+  box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:12px;padding:0 20px;
+}
+.sb-label {
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font-size:10px;font-weight:700;color:var(--slate-400);
+  letter-spacing:2px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;
+}
+.sb-pills {
+  display:flex;flex-wrap:wrap;gap:5px;align-content:center;flex:1;
+}
+.sp {
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 11px;border:1.5px solid var(--slate-200);border-radius:999px;
+  background:var(--slate-50);font-size:11.5px;color:var(--slate-500);
+  cursor:pointer;transition:var(--t);user-select:none;white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
+}
+.sp .e{font-size:12px;}
+.sp:hover{border-color:var(--blue-500);color:var(--blue-700);background:var(--blue-50);transform:translateY(-1px);box-shadow:var(--shadow);}
+.sp.on{background:var(--blue-700);border-color:var(--blue-700);color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(29,78,216,0.3);}
+
+/* ── MAIN 2-COL ── */
+.mc {
+  position:relative;z-index:1;
+  height:calc(100vh - var(--header-h) - var(--scene-h));
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+
+/* ── PANELS ── */
+.lp,.rp{
+  display:flex;flex-direction:column;gap:9px;
+  padding:14px;overflow:hidden;
+}
+.lp{border-right:1px solid var(--slate-200);}
+.rp{background:var(--slate-50);}
+
+/* ── CARD ── */
 .card {
-  background: var(--surface);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-  padding: 18px 20px;
-  margin-bottom: 14px;
+  background:var(--surface);border:1px solid var(--slate-200);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:11px 13px;
 }
-.card:last-child { margin-bottom: 0; }
-
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 13px;
+.lbl {
+  font-size:10.5px;font-weight:700;color:var(--slate-400);
+  letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;margin-bottom:8px;
 }
-.section-label::before {
-  content: '';
-  display: block;
-  width: 3px; height: 15px;
-  background: linear-gradient(180deg, var(--accent), #E8A500);
-  border-radius: 2px;
-  flex-shrink: 0;
+.lbl::before{
+  content:'';display:block;width:2.5px;height:12px;border-radius:2px;
+  background:linear-gradient(180deg,var(--amber-600),var(--amber-400));
 }
-.section-note {
-  font-weight: 400;
-  font-size: 11px;
-  text-transform: none;
-  letter-spacing: 0;
-  color: #9AABB8;
-  margin-left: 2px;
+.lbl-note{
+  font-weight:400;text-transform:none;letter-spacing:0;
+  font-size:10px;color:var(--slate-400);
 }
 
-/* ── Scene Grid ── */
-.scene-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 7px;
+/* ── CONTROL ROW ── */
+.cr{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex-shrink:0;}
+
+/* ── TAGS ── */
+.tw{display:flex;flex-wrap:wrap;gap:4px;}
+
+.tag,.rtag{
+  padding:3px 10px;border:1.5px solid var(--slate-200);border-radius:999px;
+  font-size:11.5px;cursor:pointer;transition:var(--t);
+  background:var(--slate-50);color:var(--slate-500);
+  user-select:none;-webkit-tap-highlight-color:transparent;
 }
-@media (max-width: 600px) {
-  .scene-grid { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 380px) {
-  .scene-grid { grid-template-columns: repeat(3, 1fr); }
+.tag:hover{border-color:var(--blue-500);color:var(--blue-700);}
+.tag.on{background:var(--blue-700);border-color:var(--blue-700);color:#fff;font-weight:600;}
+
+.rtag:hover{border-color:var(--amber-600);color:var(--amber-600);}
+.rtag.on{
+  background:linear-gradient(135deg,var(--amber-600),#F59E0B);
+  border-color:var(--amber-600);color:#fff;font-weight:600;
+  box-shadow:0 2px 6px rgba(217,119,6,0.25);
 }
 
-.scene-btn {
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 4px 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.18s;
-  background: var(--surface-2);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+/* ── INPUT (grows) ── */
+.inp-wrap{flex:1;display:flex;flex-direction:column;min-height:0;}
+.inp-wrap .card{flex:1;display:flex;flex-direction:column;min-height:0;}
+.ta{
+  flex:1;min-height:0;width:100%;
+  border:none;outline:none;resize:none;
+  font-size:13px;line-height:1.75;font-family:inherit;
+  color:var(--slate-900);background:transparent;
+  padding:3px 0 0;
 }
-.scene-btn:hover {
-  border-color: var(--primary-2);
-  box-shadow: 0 2px 10px rgba(27,63,110,0.12);
-  transform: translateY(-2px);
+.ta::placeholder{color:var(--slate-400);}
+
+/* ── BOTTOM ROW ── */
+.br{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex-shrink:0;}
+
+/* file drop */
+.fd{
+  border:1.5px dashed var(--slate-200);border-radius:8px;
+  padding:8px;text-align:center;cursor:pointer;transition:var(--t);
+  background:var(--slate-50);position:relative;
+  height:62px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;
 }
-.scene-btn.active {
-  border-color: var(--primary);
-  background: linear-gradient(145deg, #EBF1FB 0%, #FFFFFF 100%);
-  box-shadow: 0 0 0 3px rgba(27,63,110,0.10), 0 3px 12px rgba(27,63,110,0.12);
+.fd:hover,.fd.ov{border-color:var(--blue-500);background:var(--blue-50);}
+.fd input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.fd-ic{font-size:16px;}
+.fd-h{font-size:10.5px;color:var(--slate-400);}
+.fc{font-size:10.5px;color:var(--blue-700);display:none;align-items:center;gap:3px;font-weight:500;}
+.fc.show{display:flex;}
+.fc-x{color:#EF4444;cursor:pointer;position:relative;z-index:1;font-size:12px;}
+
+/* extra */
+.ex{
+  width:100%;height:62px;border:1.5px solid var(--slate-200);border-radius:8px;
+  padding:8px 10px;font-size:12px;font-family:inherit;
+  color:var(--slate-900);background:var(--slate-50);outline:none;
+  transition:var(--t);resize:none;
 }
-.scene-icon { font-size: 22px; line-height: 1; margin-bottom: 5px; }
-.scene-name {
-  font-size: 11px; line-height: 1.35;
-  color: var(--text-muted);
-  font-weight: 500;
+.ex:focus{border-color:var(--blue-500);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.ex::placeholder{color:var(--slate-400);}
+
+/* submit */
+.btn-go{
+  width:100%;padding:11px;flex-shrink:0;
+  background:linear-gradient(135deg,#1D4ED8,#2563EB);
+  color:#fff;border:none;border-radius:var(--radius);
+  font-size:14px;font-weight:700;letter-spacing:3px;
+  cursor:pointer;transition:var(--t);
+  box-shadow:0 4px 12px rgba(29,78,216,0.3);
+  -webkit-tap-highlight-color:transparent;
 }
-.scene-btn.active .scene-name {
-  color: var(--primary);
-  font-weight: 700;
+.btn-go:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 18px rgba(29,78,216,0.4);}
+.btn-go:active:not(:disabled){transform:none;}
+.btn-go:disabled{opacity:.6;cursor:not-allowed;transform:none!important;}
+
+/* ── OUTPUT ── */
+.out-hd{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.out-title{
+  font-size:10.5px;font-weight:700;color:var(--slate-400);
+  letter-spacing:1.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;
+}
+.out-title::before{
+  content:'';display:block;width:2.5px;height:12px;border-radius:2px;
+  background:linear-gradient(180deg,var(--blue-500),var(--blue-700));
 }
 
-/* ── Style Tags ── */
-.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn-cp{
+  display:none;align-items:center;gap:4px;
+  padding:5px 13px;border:none;border-radius:999px;
+  background:linear-gradient(135deg,var(--amber-600),#F59E0B);
+  color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;
+  transition:var(--t);box-shadow:0 2px 8px rgba(217,119,6,0.2);
+}
+.btn-cp:hover{filter:brightness(1.06);transform:translateY(-1px);}
+.btn-cp.show{display:flex;}
+.btn-cp.ok{background:linear-gradient(135deg,var(--green-600),#10B981);box-shadow:none;}
 
-.tag {
-  padding: 6px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.18s;
-  background: var(--surface-2);
-  color: var(--text-muted);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+.out-box{
+  flex:1;min-height:0;overflow-y:auto;
+  background:var(--surface);border:1px solid var(--slate-200);
+  border-radius:var(--radius);padding:15px;
+  font-size:13.5px;line-height:1.9;
+  white-space:pre-wrap;word-break:break-word;
+  color:var(--slate-900);box-shadow:var(--shadow);
 }
-.tag:hover { border-color: var(--accent); color: var(--primary); }
-.tag.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
-  font-weight: 600;
+.ph{
+  height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;color:var(--slate-400);
 }
+.ph-i{font-size:34px;opacity:.5;}
+.ph-t{font-size:12.5px;text-align:center;line-height:1.65;}
 
-/* ── Textarea ── */
-.textarea {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 13px 14px;
-  font-size: 14px;
-  line-height: 1.7;
-  font-family: inherit;
-  color: var(--text);
-  background: var(--surface-2);
-  resize: vertical;
-  outline: none;
-  transition: all 0.18s;
-  min-height: 120px;
-}
-.textarea:focus {
-  border-color: var(--primary-2);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(36,85,164,0.08);
-}
-.textarea::placeholder { color: #B0BFCC; }
+.out-ft{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.ci{font-size:11px;color:var(--slate-400);}
 
-/* ── Recipient Tags (single-select) ── */
-.rtag {
-  padding: 6px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.18s;
-  background: var(--surface-2);
-  color: var(--text-muted);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+/* history */
+.hs{display:none;flex-direction:column;gap:5px;max-height:120px;flex-shrink:0;}
+.hs.show{display:flex;}
+.hs-lbl{font-size:10px;font-weight:700;color:var(--slate-400);letter-spacing:1px;text-transform:uppercase;}
+.hs-list{display:flex;flex-direction:column;gap:3px;overflow-y:auto;}
+.hi{
+  padding:5px 9px;background:var(--surface);border:1px solid var(--slate-200);
+  border-radius:7px;font-size:11px;color:var(--slate-500);
+  cursor:pointer;transition:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.rtag:hover { border-color: var(--accent); color: var(--primary); }
-.rtag.active {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  border-color: var(--accent);
-  color: var(--primary);
-  font-weight: 600;
-}
+.hi:hover{border-color:var(--blue-500);color:var(--blue-700);background:var(--blue-50);}
+.hi strong{color:var(--slate-400);font-weight:600;margin-right:4px;}
 
-/* ── File Drop ── */
-.file-drop {
-  border: 2px dashed var(--border);
-  border-radius: 10px;
-  padding: 18px 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.18s;
-  background: var(--surface-2);
-  position: relative;
+/* mic button */
+.btn-mic {
+  margin-left:auto;
+  width:26px;height:26px;border-radius:50%;
+  border:1.5px solid var(--slate-200);
+  background:var(--slate-50);color:var(--slate-500);
+  font-size:13px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--t);flex-shrink:0;line-height:1;
+  -webkit-tap-highlight-color:transparent;
 }
-.file-drop:hover, .file-drop.over {
-  border-color: var(--primary-2);
-  background: #EDF2FB;
+.btn-mic:hover{border-color:var(--blue-500);background:var(--blue-50);color:var(--blue-700);}
+.btn-mic.rec{
+  background:#EF4444;border-color:#EF4444;color:#fff;
+  animation:pulse-rec 1s ease-in-out infinite;
 }
-.file-drop input[type="file"] {
-  position: absolute; inset: 0;
-  opacity: 0; cursor: pointer;
-  width: 100%; height: 100%;
+@keyframes pulse-rec{
+  0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.4);}
+  50%{box-shadow:0 0 0 7px rgba(239,68,68,0);}
 }
-.file-drop-icon { font-size: 26px; margin-bottom: 6px; }
-.file-drop-hint { font-size: 12.5px; color: var(--text-muted); }
-.file-chosen {
-  margin-top: 10px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  font-size: 13px;
-  color: var(--primary);
-  font-weight: 500;
-}
-.file-chosen.show { display: flex; }
-.clear-file {
-  color: var(--danger);
-  font-size: 15px;
-  cursor: pointer;
-  line-height: 1;
-  position: relative; z-index: 1;
+/* mobile: larger mic */
+@media(max-width:800px){
+  .btn-mic{width:34px;height:34px;font-size:16px;}
 }
 
-/* ── Extra input ── */
-.extra-input {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 13px;
-  font-size: 13.5px;
-  font-family: inherit;
-  color: var(--text);
-  background: var(--surface-2);
-  outline: none;
-  transition: all 0.18s;
-}
-.extra-input:focus {
-  border-color: var(--primary-2);
-  background: #fff;
-  box-shadow: 0 0 0 3px rgba(36,85,164,0.08);
-}
-.extra-input::placeholder { color: #B0BFCC; }
-
-/* ── Submit ── */
-.btn-submit {
-  width: 100%;
-  padding: 15px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 14px rgba(27,63,110,0.30);
-  -webkit-tap-highlight-color: transparent;
-}
-.btn-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 22px rgba(27,63,110,0.38);
-}
-.btn-submit:active:not(:disabled) { transform: translateY(0); }
-.btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; }
-
-/* ── Output ── */
-.output-sticky { position: sticky; top: 80px; }
-
-.output-box {
-  min-height: 220px;
-  max-height: 62vh;
-  overflow-y: auto;
-  background: var(--surface-2);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 16px;
-  font-size: 14.5px;
-  line-height: 1.85;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: var(--text);
-  transition: all 0.18s;
-}
-.output-box:focus-within { border-color: var(--border); }
-
-.placeholder-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 180px;
-  color: #B5C4D3;
-  gap: 10px;
-}
-.placeholder-icon { font-size: 38px; }
-.placeholder-text { font-size: 13px; text-align: center; line-height: 1.6; }
-
-.output-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 11px;
-}
-.char-info { font-size: 12px; color: var(--text-muted); }
-
-.btn-copy {
-  display: none;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 18px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-  color: var(--primary);
-  border: none;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.18s;
-  letter-spacing: 0.5px;
-}
-.btn-copy:hover { filter: brightness(1.05); transform: translateY(-1px); }
-.btn-copy.show { display: flex; }
-.btn-copy.ok { background: linear-gradient(135deg, var(--success), #2ECC90); color: #fff; }
-
-/* ── Cursor blink ── */
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.cursor {
-  display: inline-block;
-  width: 2px; height: 1.1em;
-  background: var(--primary);
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: blink 0.8s ease-in-out infinite;
+/* cursor */
+@keyframes bk{0%,100%{opacity:1}50%{opacity:0}}
+.cur{
+  display:inline-block;width:2px;height:.95em;
+  background:var(--blue-600);margin-left:1px;
+  vertical-align:text-bottom;border-radius:1px;
+  animation:bk .75s ease-in-out infinite;
 }
 
-/* ── History ── */
-.history-wrap {
-  margin-top: 16px;
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
-}
-.history-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-.history-list { display: flex; flex-direction: column; gap: 7px; max-height: 180px; overflow-y: auto; }
-.history-item {
-  padding: 9px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-size: 12.5px;
-  color: var(--text-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.history-item:hover { border-color: var(--primary-2); color: var(--primary); background: #EDF2FB; }
-.history-item strong { color: var(--primary); font-size: 11px; margin-right: 5px; }
+/* scrollbar */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:2px;}
+::-webkit-scrollbar-thumb:hover{background:#94A3B8;}
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #C4D0DC; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #A0B0BF; }
-
-/* ── Footer ── */
-.footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 11.5px;
-  color: #9AABB8;
-  letter-spacing: 1px;
+/* ── MOBILE ── */
+@media(max-width:800px){
+  html,body{height:auto;overflow:auto;}
+  body::after{display:none;}
+  .sb{height:auto;padding:10px 14px;flex-wrap:wrap;}
+  .sb-label{writing-mode:horizontal-tb;transform:none;}
+  .mc{height:auto;grid-template-columns:1fr;overflow:visible;}
+  .lp,.rp{overflow:visible;}
+  .lp{border-right:none;border-bottom:1px solid var(--slate-200);}
+  .inp-wrap{flex:none;}
+  .ta{min-height:110px;}
+  .cr,.br{grid-template-columns:1fr;}
+  .out-box{min-height:180px;max-height:60vh;}
 }
+
+/* fine-tune label spacing without bottom-row label wrapper */
+.br-lbl{font-size:10.5px;font-weight:700;color:var(--slate-400);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.br-lbl::before{content:'';display:block;width:2.5px;height:11px;border-radius:2px;background:linear-gradient(180deg,var(--amber-600),var(--amber-400));}
+.br-note{font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--slate-400);}
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="logo">文</div>
-  <div class="header-text">
-    <div class="header-title">文 字 工 坊</div>
-    <div class="header-sub">智能文字处理助手</div>
+<!-- Header -->
+<header class="hd">
+  <div class="hd-logo">文</div>
+  <div>
+    <div class="hd-name">言 值 +</div>
+    <div class="hd-sub">让每一句话都说到位</div>
   </div>
-  <div class="header-badge">AI 驱动</div>
+  <span class="hd-badge">AI 驱动</span>
 </header>
 
-<div class="container">
+<!-- Scene Band -->
+<div class="sb">
+  <div class="sb-label">场景</div>
+  <div class="sb-pills" id="sceneGrid">
+    <div class="sp on" data-v="official"><span class="e">📄</span>公文红头</div>
+    <div class="sp" data-v="report"><span class="e">📊</span>工作报告</div>
+    <div class="sp" data-v="wechat_msg"><span class="e">💬</span>微信消息</div>
+    <div class="sp" data-v="speech"><span class="e">🎤</span>发言稿</div>
+    <div class="sp" data-v="ppt"><span class="e">📑</span>PPT文案</div>
+    <div class="sp" data-v="work_summary"><span class="e">📝</span>工作总结</div>
+    <div class="sp" data-v="host"><span class="e">🎙️</span>活动主持词</div>
+    <div class="sp" data-v="wechat_article"><span class="e">📱</span>微信推文</div>
+    <div class="sp" data-v="short_video"><span class="e">🎬</span>短视频脚本</div>
+    <div class="sp" data-v="meeting_minutes"><span class="e">🗒️</span>会议纪要</div>
+    <div class="sp" data-v="invitation"><span class="e">✉️</span>邀请函</div>
+    <div class="sp" data-v="press_release"><span class="e">📰</span>新闻稿</div>
+    <div class="sp" data-v="thank_letter"><span class="e">🙏</span>感谢信/贺信</div>
+    <div class="sp" data-v="event_plan"><span class="e">📋</span>活动方案</div>
+    <div class="sp" data-v="proposal"><span class="e">📢</span>倡议书</div>
+    <div class="sp" data-v="survey_notice"><span class="e">📊</span>调研通知</div>
+    <div class="sp" data-v="custom"><span class="e">✨</span>自定义</div>
+  </div>
+</div>
 
-  <!-- ── LEFT: Input ── -->
-  <div>
+<!-- Main -->
+<div class="mc">
 
-    <!-- Scene -->
-    <div class="card">
-      <div class="section-label">使用场景</div>
-      <div class="scene-grid" id="sceneGrid">
-        <div class="scene-btn active" data-v="official">
-          <div class="scene-icon">📄</div>
-          <div class="scene-name">公文<br>红头文件</div>
+  <!-- LEFT -->
+  <div class="lp">
+
+    <!-- Style + Recipient side by side -->
+    <div class="cr">
+      <div class="card">
+        <div class="lbl">处理方式 <span class="lbl-note">可多选</span></div>
+        <div class="tw" id="styleTags">
+          <div class="tag on" data-v="polish">✦ 整体润色</div>
+          <div class="tag" data-v="shorten">◀ 精简缩写</div>
+          <div class="tag" data-v="expand">▶ 扩充内容</div>
+          <div class="tag" data-v="formalize">书面化</div>
+          <div class="tag" data-v="professionalize">专业化</div>
+          <div class="tag" data-v="vague">〜 模糊处理</div>
+          <div class="tag" data-v="precise">◎ 精确表达</div>
+          <div class="tag" data-v="summarize">📌 提炼总结</div>
+          <div class="tag" data-v="translate">🌐 中英互译</div>
+          <div class="tag" data-v="outline">🗂 生成提纲</div>
+          <div class="tag" data-v="format">⊞ 格式整理</div>
         </div>
-        <div class="scene-btn" data-v="report">
-          <div class="scene-icon">📊</div>
-          <div class="scene-name">工作<br>报告</div>
-        </div>
-        <div class="scene-btn" data-v="wechat_msg">
-          <div class="scene-icon">💬</div>
-          <div class="scene-name">微信<br>消息</div>
-        </div>
-        <div class="scene-btn" data-v="speech">
-          <div class="scene-icon">🎤</div>
-          <div class="scene-name">发言稿</div>
-        </div>
-        <div class="scene-btn" data-v="ppt">
-          <div class="scene-icon">📑</div>
-          <div class="scene-name">PPT<br>文案</div>
-        </div>
-        <div class="scene-btn" data-v="work_summary">
-          <div class="scene-icon">📝</div>
-          <div class="scene-name">工作<br>总结</div>
-        </div>
-        <div class="scene-btn" data-v="host">
-          <div class="scene-icon">🎙️</div>
-          <div class="scene-name">活动<br>主持词</div>
-        </div>
-        <div class="scene-btn" data-v="wechat_article">
-          <div class="scene-icon">📱</div>
-          <div class="scene-name">微信<br>推文</div>
-        </div>
-        <div class="scene-btn" data-v="short_video">
-          <div class="scene-icon">🎬</div>
-          <div class="scene-name">短视频<br>脚本</div>
-        </div>
-        <div class="scene-btn" data-v="meeting_minutes">
-          <div class="scene-icon">🗒️</div>
-          <div class="scene-name">会议<br>纪要</div>
-        </div>
-        <div class="scene-btn" data-v="invitation">
-          <div class="scene-icon">✉️</div>
-          <div class="scene-name">邀请函</div>
-        </div>
-        <div class="scene-btn" data-v="press_release">
-          <div class="scene-icon">📰</div>
-          <div class="scene-name">新闻稿</div>
-        </div>
-        <div class="scene-btn" data-v="thank_letter">
-          <div class="scene-icon">🙏</div>
-          <div class="scene-name">感谢信<br>贺信</div>
-        </div>
-        <div class="scene-btn" data-v="event_plan">
-          <div class="scene-icon">📋</div>
-          <div class="scene-name">活动<br>方案</div>
-        </div>
-        <div class="scene-btn" data-v="proposal">
-          <div class="scene-icon">📢</div>
-          <div class="scene-name">倡议书</div>
-        </div>
-        <div class="scene-btn" data-v="survey_notice">
-          <div class="scene-icon">📊</div>
-          <div class="scene-name">调研<br>通知</div>
-        </div>
-        <div class="scene-btn" data-v="custom">
-          <div class="scene-icon">✨</div>
-          <div class="scene-name">自定义</div>
+      </div>
+      <div class="card">
+        <div class="lbl">发送对象 <span class="lbl-note">可选</span></div>
+        <div class="tw" id="recipientTags">
+          <div class="rtag on" data-v="">不限</div>
+          <div class="rtag" data-v="政府人员">🏛 政府人员</div>
+          <div class="rtag" data-v="上级领导">👔 上级领导</div>
+          <div class="rtag" data-v="会员单位">🤝 会员单位</div>
+          <div class="rtag" data-v="合作方">🔗 合作方</div>
+          <div class="rtag" data-v="同事">👥 同事</div>
+          <div class="rtag" data-v="专家学者">🎓 专家学者</div>
+          <div class="rtag" data-v="公众/读者">👁 公众/读者</div>
         </div>
       </div>
     </div>
 
-    <!-- Style Tags -->
-    <div class="card">
-      <div class="section-label">处理方式 <span class="section-note">可多选</span></div>
-      <div class="tags-wrap" id="styleTags">
-        <div class="tag active" data-v="polish">✦ 整体润色</div>
-        <div class="tag" data-v="shorten">◀ 精简缩写</div>
-        <div class="tag" data-v="expand">▶ 扩充内容</div>
-        <div class="tag" data-v="formalize">📘 书面化</div>
-        <div class="tag" data-v="professionalize">🔬 专业化</div>
-        <div class="tag" data-v="vague">〜 模糊处理</div>
-        <div class="tag" data-v="precise">◎ 精确表达</div>
-        <div class="tag" data-v="summarize">📌 提炼总结</div>
-        <div class="tag" data-v="translate">🌐 中英互译</div>
-        <div class="tag" data-v="outline">🗂 生成提纲</div>
-        <div class="tag" data-v="format">⊞ 格式整理</div>
+    <!-- Text input (flex grow) -->
+    <div class="inp-wrap">
+      <div class="card">
+        <div class="lbl">输入文字 <span class="lbl-note">Ctrl+Enter 提交</span>
+          <button class="btn-mic" id="micBtn" onclick="toggleVoice()" title="语音输入">🎤</button>
+        </div>
+        <textarea class="ta" id="inputText"
+          placeholder="在此粘贴或输入需要处理的文字…&#10;&#10;也可以不填文字，直接上传文件。"></textarea>
       </div>
     </div>
 
-    <!-- Recipient -->
-    <div class="card">
-      <div class="section-label">发送对象 <span class="section-note">可选，选后 AI 自动调整语气</span></div>
-      <div class="tags-wrap" id="recipientTags">
-        <div class="rtag active" data-v="">不限</div>
-        <div class="rtag" data-v="政府人员">🏛 政府人员</div>
-        <div class="rtag" data-v="上级领导">👔 上级领导</div>
-        <div class="rtag" data-v="会员单位">🤝 会员单位</div>
-        <div class="rtag" data-v="合作方">🔗 合作方</div>
-        <div class="rtag" data-v="同事">👥 同事</div>
-        <div class="rtag" data-v="专家学者">🎓 专家学者</div>
-        <div class="rtag" data-v="公众/读者">👁 公众/读者</div>
-      </div>
-    </div>
-
-    <!-- Text Input -->
-    <div class="card">
-      <div class="section-label">输入文字 <span class="section-note">Ctrl+Enter 快速提交</span></div>
-      <textarea class="textarea" id="inputText" rows="7"
-        placeholder="在此粘贴或输入需要处理的文字…&#10;&#10;也可以不填文字，只上传文件。"></textarea>
-    </div>
-
-    <!-- File Upload -->
-    <div class="card">
-      <div class="section-label">上传文件 <span class="section-note">可选 · 支持 Word / PDF / TXT</span></div>
-      <div class="file-drop" id="fileDrop">
-        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
-        <div class="file-drop-icon">📎</div>
-        <div class="file-drop-hint">点击选择文件，或将文件拖拽到此处</div>
-        <div class="file-chosen" id="fileChosen">
-          <span id="fileNameText"></span>
-          <span class="clear-file" id="clearFile">✕</span>
+    <!-- File + Extra -->
+    <div class="br">
+      <div>
+        <div class="br-lbl">上传文件 <span class="br-note">Word / PDF / TXT</span></div>
+        <div class="fd" id="fileDrop">
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt">
+          <div class="fd-ic">📎</div>
+          <div class="fd-h">点击或拖拽文件</div>
+          <div class="fc" id="fileChosen">
+            <span id="fileNameText"></span>
+            <span class="fc-x" id="clearFile">✕</span>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Extra Req -->
-    <div class="card">
-      <div class="section-label">额外要求 <span class="section-note">可选</span></div>
-      <input class="extra-input" type="text" id="extraReq"
-        placeholder="例如：语气更温和一些、不超过200字、重点突出食品安全政策意义…">
+      <div>
+        <div class="br-lbl">额外要求 <span class="br-note">可选</span></div>
+        <textarea class="ex" id="extraReq"
+          placeholder="例如：语气更温和、不超过200字、强调某个重点…"></textarea>
+      </div>
     </div>
 
     <!-- Submit -->
-    <button class="btn-submit" id="submitBtn" onclick="doPolish()">开 始 处 理</button>
+    <button class="btn-go" id="submitBtn" onclick="doPolish()">开 始 处 理</button>
 
   </div>
 
-  <!-- ── RIGHT: Output ── -->
-  <div class="output-sticky">
-    <div class="card" style="margin-bottom:0">
-      <div class="section-label">处理结果</div>
-      <div class="output-box" id="outputBox">
-        <div class="placeholder-inner" id="placeholder">
-          <div class="placeholder-icon">✍️</div>
-          <div class="placeholder-text">选好场景和处理方式<br>输入文字或上传文件<br>点击「开始处理」</div>
-        </div>
-      </div>
-      <div class="output-footer">
-        <span class="char-info" id="charInfo"></span>
-        <button class="btn-copy" id="copyBtn" onclick="copyResult()">复制结果</button>
-      </div>
+  <!-- RIGHT -->
+  <div class="rp">
+    <div class="out-hd">
+      <div class="out-title">处理结果</div>
+      <button class="btn-cp" id="copyBtn" onclick="copyResult()">复制结果</button>
+    </div>
 
-      <!-- History -->
-      <div class="history-wrap" id="historyWrap" style="display:none">
-        <div class="history-title">本次会话历史</div>
-        <div class="history-list" id="historyList"></div>
+    <div class="out-box" id="outputBox">
+      <div class="ph" id="placeholder">
+        <div class="ph-i">✍️</div>
+        <div class="ph-t">在左侧选好场景和处理方式<br>输入文字后点击「开始处理」</div>
       </div>
+    </div>
+
+    <div class="out-ft">
+      <span class="ci" id="charInfo"></span>
+    </div>
+
+    <div class="hs" id="historySection">
+      <div class="hs-lbl">会话历史</div>
+      <div class="hs-list" id="historyList"></div>
     </div>
   </div>
 
 </div>
 
-<div class="footer">文字工坊 · AI 驱动的专业文字助手</div>
-
 <script>
 const $ = id => document.getElementById(id);
 
-// ── Scene: single select ──
+// Scene: single select
 $('sceneGrid').addEventListener('click', e => {
-  const b = e.target.closest('.scene-btn');
+  const b = e.target.closest('.sp');
   if (!b) return;
-  document.querySelectorAll('.scene-btn').forEach(x => x.classList.remove('active'));
-  b.classList.add('active');
+  document.querySelectorAll('.sp').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
 });
 
-// ── Style tags: multi select ──
+// Style: multi select
 $('styleTags').addEventListener('click', e => {
   const t = e.target.closest('.tag');
   if (!t) return;
-  t.classList.toggle('active');
-  if (!document.querySelectorAll('.tag.active').length) t.classList.add('active');
+  t.classList.toggle('on');
+  if (!document.querySelectorAll('.tag.on').length) t.classList.add('on');
 });
 
-// ── Recipient tags: single select ──
+// Recipient: single select
 $('recipientTags').addEventListener('click', e => {
   const t = e.target.closest('.rtag');
   if (!t) return;
-  document.querySelectorAll('.rtag').forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
+  document.querySelectorAll('.rtag').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
 });
 
-// ── File handling ──
+// File
 let file = null;
-const drop = $('fileDrop');
-const inp = $('fileInput');
-
-drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
-drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+const drop = $('fileDrop'), inp = $('fileInput');
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('ov'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('ov'));
 drop.addEventListener('drop', e => {
-  e.preventDefault(); drop.classList.remove('over');
-  const f = e.dataTransfer.files[0];
-  if (f) setFile(f);
+  e.preventDefault(); drop.classList.remove('ov');
+  if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
 });
 inp.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
-
 $('clearFile').addEventListener('click', e => {
-  e.stopPropagation();
-  file = null; inp.value = '';
+  e.stopPropagation(); file = null; inp.value = '';
   $('fileChosen').classList.remove('show');
 });
-
 function setFile(f) {
   file = f;
-  $('fileNameText').textContent = '📄 ' + f.name;
+  $('fileNameText').textContent = f.name;
   $('fileChosen').classList.add('show');
 }
 
-// ── Keyboard shortcut ──
+// Shortcut
 $('inputText').addEventListener('keydown', e => {
   if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) doPolish();
 });
 
-// ── History ──
-const history = [];
-
-function addHistory(scene, styles, result) {
-  history.unshift({ scene, styles, result, time: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'}) });
-  if (history.length > 8) history.pop();
-  renderHistory();
+// History
+const hist = [];
+function addHist(scene, result) {
+  hist.unshift({ scene, result, t: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'}) });
+  if (hist.length > 6) hist.pop();
+  renderHist();
 }
-
-function renderHistory() {
-  if (!history.length) return;
-  $('historyWrap').style.display = '';
-  const list = $('historyList');
-  list.innerHTML = history.map((h, i) =>
-    `<div class="history-item" onclick="restoreHistory(${i})"><strong>[${h.time}]</strong>${h.scene} · ${h.result.slice(0,40).replace(/\n/g,' ')}…</div>`
+function renderHist() {
+  if (!hist.length) return;
+  $('historySection').classList.add('show');
+  $('historyList').innerHTML = hist.map((h, i) =>
+    `<div class="hi" onclick="restoreHist(${i})"><strong>${h.t}</strong>${h.scene} · ${h.result.slice(0,50).replace(/\n/g,' ')}…</div>`
   ).join('');
 }
-
-function restoreHistory(i) {
-  const h = history[i];
-  const box = $('outputBox');
-  box.textContent = h.result;
-  $('charInfo').textContent = `共 ${h.result.length} 字`;
-  $('copyBtn').classList.add('show');
-  $('copyBtn').classList.remove('ok');
-  $('copyBtn').textContent = '复制结果';
+function restoreHist(i) {
+  const h = hist[i];
+  $('outputBox').textContent = h.result;
+  $('charInfo').textContent = `${h.result.length} 字`;
+  const cb = $('copyBtn');
+  cb.className = 'btn-cp show'; cb.textContent = '复制结果';
 }
 
-// ── Main ──
+// Main
 async function doPolish() {
   const text = $('inputText').value.trim();
-  const scene = document.querySelector('.scene-btn.active')?.dataset.v || 'official';
-  const sceneName = document.querySelector('.scene-btn.active')?.querySelector('.scene-name')?.innerText.replace('\n','') || '';
-  const styles = Array.from(document.querySelectorAll('.tag.active')).map(t => t.dataset.v).join(',');
+  const sp = document.querySelector('.sp.on');
+  const scene = sp?.dataset.v || 'official';
+  const sceneName = sp?.textContent.trim() || '';
+  const styles = Array.from(document.querySelectorAll('.tag.on')).map(t => t.dataset.v).join(',');
+  const recipient = document.querySelector('.rtag.on')?.dataset.v || '';
   const extra = $('extraReq').value.trim();
 
   if (!text && !file) { alert('请输入文字或上传文件'); return; }
 
   const btn = $('submitBtn');
-  btn.disabled = true;
-  btn.textContent = '处理中…';
+  btn.disabled = true; btn.textContent = '处 理 中 …';
 
   const box = $('outputBox');
   $('placeholder')?.remove();
   box.textContent = '';
   const cur = document.createElement('span');
-  cur.className = 'cursor';
-  box.appendChild(cur);
+  cur.className = 'cur'; box.appendChild(cur);
   $('copyBtn').classList.remove('show');
   $('charInfo').textContent = '';
 
-  const recipient = document.querySelector('.rtag.active')?.dataset.v || '';
   const fd = new FormData();
-  fd.append('text', text);
-  fd.append('scene', scene);
-  fd.append('styles', styles);
-  fd.append('custom_req', extra);
+  fd.append('text', text); fd.append('scene', scene);
+  fd.append('styles', styles); fd.append('custom_req', extra);
   fd.append('recipient', recipient);
   if (file) fd.append('file', file);
 
@@ -754,6 +586,7 @@ async function doPolish() {
     const reader = resp.body.getReader();
     const dec = new TextDecoder();
     let result = '';
+    box.textContent = '';
 
     while (true) {
       const { done, value } = await reader.read();
@@ -766,38 +599,76 @@ async function doPolish() {
 
     cur.remove();
     if (result) {
-      $('charInfo').textContent = `共 ${result.length} 字`;
-      $('copyBtn').classList.add('show');
-      $('copyBtn').className = 'btn-copy show';
-      $('copyBtn').textContent = '复制结果';
-      addHistory(sceneName, styles, result);
+      $('charInfo').textContent = `${result.length} 字`;
+      const cb = $('copyBtn');
+      cb.className = 'btn-cp show'; cb.textContent = '复制结果';
+      addHist(sceneName, result);
     }
   } catch (err) {
     cur.remove();
     box.textContent = '❌ 处理失败：' + err.message;
   } finally {
-    btn.disabled = false;
-    btn.textContent = '开 始 处 理';
+    btn.disabled = false; btn.textContent = '开 始 处 理';
   }
+}
+
+// ── Voice Input ──
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recog = null, isRec = false;
+
+function toggleVoice() {
+  if (!SpeechRec) {
+    alert('您的浏览器暂不支持语音输入\n推荐使用 Chrome 或 Safari（iOS 需要 Safari）');
+    return;
+  }
+  isRec ? stopVoice() : startVoice();
+}
+
+function startVoice() {
+  recog = new SpeechRec();
+  recog.lang = 'zh-CN';
+  recog.continuous = true;
+  recog.interimResults = true;
+
+  const ta = $('inputText');
+  let baseText = ta.value;
+
+  recog.onresult = e => {
+    let interim = '', final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      e.results[i].isFinal
+        ? (final += e.results[i][0].transcript)
+        : (interim += e.results[i][0].transcript);
+    }
+    if (final) baseText += final;
+    ta.value = baseText + interim;
+    ta.scrollTop = ta.scrollHeight;
+  };
+
+  recog.onerror = e => { if (e.error !== 'no-speech') stopVoice(); };
+  recog.onend = () => { if (isRec) recog.start(); };
+
+  recog.start();
+  isRec = true;
+  $('micBtn').classList.add('rec');
+  $('micBtn').title = '点击停止录音';
+}
+
+function stopVoice() {
+  recog?.stop(); recog = null; isRec = false;
+  $('micBtn').classList.remove('rec');
+  $('micBtn').title = '语音输入';
 }
 
 function copyResult() {
   const text = $('outputBox').textContent.trim();
   navigator.clipboard.writeText(text).then(() => {
     const btn = $('copyBtn');
-    btn.textContent = '✓ 已复制';
-    btn.classList.add('ok');
-    setTimeout(() => {
-      btn.textContent = '复制结果';
-      btn.classList.remove('ok');
-    }, 2000);
+    btn.textContent = '✓ 已复制'; btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = '复制结果'; btn.classList.remove('ok'); }, 2000);
   }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    ta.remove();
+    const ta = Object.assign(document.createElement('textarea'), { value: text });
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
   });
 }
 </script>
