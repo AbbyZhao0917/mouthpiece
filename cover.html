@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嘴替封面</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 750px;
+    height: 1000px;
+    overflow: hidden;
+    font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(150deg, #B8EDE8 0%, #C8E8FF 40%, #DDD0FF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ambient blobs */
+  .blob1 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .blob2 {
+    position: absolute;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(156,132,240,0.2) 0%, transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .blob3 {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,175,176,0.15) 0%, transparent 70%);
+    bottom: 200px; left: 40px;
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 650px;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(20px);
+    border-radius: 36px;
+    border: 2px solid rgba(255,255,255,0.8);
+    box-shadow: 0 20px 60px rgba(26,175,176,0.18), 0 4px 20px rgba(0,0,0,0.06);
+    padding: 52px 56px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .top-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #1AAFB0, #3BBFBF);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    align-self: flex-start;
+    box-shadow: 0 4px 12px rgba(26,175,176,0.3);
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .logo-box {
+    width: 90px; height: 90px;
+    background: linear-gradient(135deg, #1AAFB0, #5BCFCF);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    box-shadow: 0 8px 24px rgba(26,175,176,0.35);
+    flex-shrink: 0;
+  }
+  .title-block {}
+  .app-name {
+    font-size: 58px;
+    font-weight: 900;
+    color: #0A2A30;
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+  .app-en {
+    font-size: 16px;
+    color: #1AAFB0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  .tagline {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1A3640;
+    line-height: 1.5;
+    border-left: 4px solid #1AAFB0;
+    padding-left: 16px;
+  }
+
+  .pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .pill-teal { background: rgba(26,175,176,0.12); color: #0E8080; border: 1.5px solid rgba(26,175,176,0.3); }
+  .pill-purple { background: rgba(156,132,240,0.12); color: #6B48D8; border: 1.5px solid rgba(156,132,240,0.3); }
+  .pill-pink { background: rgba(236,135,197,0.12); color: #C0449C; border: 1.5px solid rgba(236,135,197,0.3); }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(26,175,176,0.25), transparent);
+  }
+
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .story-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 17px;
+    color: #2A4A50;
+    font-weight: 500;
+  }
+  .story-emoji { font-size: 22px; width: 30px; text-align: center; flex-shrink: 0; }
+  .story-hl { color: #1AAFB0; font-weight: 700; }
+
+  .bottom-cta {
+    background: linear-gradient(135deg, #1AAFB0, #3BBFBF, #70C8D8);
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 6px 20px rgba(26,175,176,0.3);
+  }
+  .cta-text { color: white; }
+  .cta-main { font-size: 20px; font-weight: 800; letter-spacing: 1px; }
+  .cta-sub { font-size: 13px; opacity: 0.85; margin-top: 3px; }
+  .cta-heart {
+    font-size: 40px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+  }
+
+  .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .badge-vibe {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #9C84F0, #C4B5FD);
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 5px 14px; border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(156,132,240,0.3);
+    letter-spacing: 0.5px;
+  }
+  .badge-zero {
+    font-size: 13px; color: #6B8090; font-weight: 500;
+  }
+  .badge-zero span { color: #1AAFB0; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="blob3"></div>
+
+  <div class="card">
+    <div class="top-tag">✨ Vibe Coding 大赏</div>
+
+    <div class="logo-row">
+      <div class="logo-box">📣</div>
+      <div class="title-block">
+        <div class="app-name">嘴 替</div>
+        <div class="app-en">mouthpiece · AI 文字助手</div>
+      </div>
+    </div>
+
+    <div class="tagline">
+      不知道怎么说？<br>
+      让嘴替帮你说 ✦
+    </div>
+
+    <div class="pills-row">
+      <div class="pill pill-teal">📄 22 个场景</div>
+      <div class="pill pill-purple">🎨 15 种语气风格</div>
+      <div class="pill pill-pink">✍️ 12 种处理方式</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="story">
+      <div class="story-item">
+        <span class="story-emoji">👩‍🎓</span>
+        <span>文科生 · <span class="story-hl">英语专业</span> · 编程零基础</span>
+      </div>
+      <div class="story-item">
+        <span class="story-emoji">⏰</span>
+        <span>从想法到上线，<span class="story-hl">不到半天</span></span>
+      </div>
+      <div class="story-item">
+        <span class="story-emoji">🤫</span>
+        <span>专为 <span class="story-hl">I 人</span> 设计，再也不用憋话</span>
+      </div>
+    </div>
+
+    <div class="bottom-cta">
+      <div class="cta-text">
+        <div class="cta-main">👍 点赞超过 20 即开源</div>
+        <div class="cta-sub">人人都能部署自己的嘴替</div>
+      </div>
+      <div class="cta-heart">🎁</div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="badge-vibe">🔮 Claude Code 出品</div>
+      <div class="badge-zero">编程经验 <span>0 行</span> · 效果 <span>满分</span></div>
+    </div>
+  </div>
+</body>
+</html>

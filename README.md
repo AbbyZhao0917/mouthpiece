@@ -89,8 +89,8 @@ ANTHROPIC_API_KEY = sk-ant-你的key
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/你的用户名/ccfa-polish.git
-cd ccfa-polish
+git clone https://github.com/你的用户名/mouthpiece.git
+cd mouthpiece
 
 # 2. 安装依赖
 pip install -r requirements.txt
@@ -161,7 +161,7 @@ ccfa-polish/
 
 ## License
 
-[MIT](LICENSE) © 2026 [AbbyZhao0917](https://github.com/AbbyZhao0917)
+[MIT](LICENSE) © 2026 [AbbyZhao0917](https://github.com/AbbyZhao0917/mouthpiece)
 
 ---
 
