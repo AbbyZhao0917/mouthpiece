@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import HTMLResponse, StreamingResponse
-import anthropic
+from openai import OpenAI
 import os
 import io
 from dotenv import load_dotenv
@@ -10,7 +10,10 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = FastAPI()
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("DEEPSEEK_API_KEY"),
+    base_url="https://api.deepseek.com",
+)
 
 SCENES = {
     "official":       ("公文/红头文件",  "正式公文格式，用语庄重规范，遵循国家公文写作标准，措辞准确严谨"),
@@ -128,14 +131,23 @@ async def polish(
     )
 
     def stream():
-        with client.messages.stream(
-            model="claude-sonnet-4-6",
-            max_tokens=4096,
-            system=system,
-            messages=[{"role": "user", "content": user_msg}],
-        ) as s:
-            for chunk in s.text_stream:
-                yield chunk
+        try:
+            messages = [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user_msg},
+            ]
+            response = client.chat.completions.create(
+                model="deepseek-v4-pro",
+                max_tokens=4096,
+                messages=messages,
+                stream=True,
+            )
+            for chunk in response:
+                delta = chunk.choices[0].delta if chunk.choices else None
+                if delta and delta.content:
+                    yield delta.content
+        except Exception as e:
+            yield f"❌ 调用 AI 出错：{e}"
 
     return StreamingResponse(stream(), media_type="text/plain; charset=utf-8")
 
